@@ -1,0 +1,205 @@
+/* awal contact */
+
+#contact {
+    margin-bottom: 100px;
+}
+
+#contact .contact {
+    display: flex;
+    justify-content: center;
+}
+
+#contact .contact form .row {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+#contact .contact form .row .col input {
+    border: none;
+    outline: none;
+    background-color: #eaeaea;
+    color: black;
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+#contact .contact form .row .col {
+    display: inline-block;
+    width: auto;
+    margin: 10px 0;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
+#contact .contact form .row .col label {
+    padding: 10px;
+}
+
+#contact .contact form .row .col label i {
+    color: black;
+    font-size: 20px;
+}
+
+#contact .contact form .row .col.textarea {
+    width: auto;
+}
+
+#contact .contact form .row .col textarea {
+    border: none;
+    outline: none;
+    background-color: #eaeaea;
+    color: black;
+    font-size: 20px;
+    margin: 10px 0;
+    resize: none;
+}
+
+#contact .contact form .row .col button {
+    color: black;
+    cursor: pointer;
+    padding: 10px 50px;
+    margin-bottom: 5px;
+    transition: 0.5s;
+    border-radius: 5px;
+}
+
+#contact .contact form .row .col button:hover {
+    color: #ffff;
+    background-color: black;
+    cursor: pointer;
+    padding: 10px 50px;
+    margin-bottom: 5px;
+}
+
+#contact .contact form .row .col button:first-child {
+    margin-right: 5px;
+}
+
+#contact .contact form .row .col button:last-child {
+    color: #ffff;
+    cursor: pointer;
+    padding: 10px 50px;
+    margin-bottom: 5px;
+    transition: 0.5s;
+    border-radius: 5px;
+    background-color: #d0312d;
+    border-color: #d0312d;
+}
+
+#contact .contact form .row .col button:last-child:hover {
+    color: #ffff;
+    cursor: pointer;
+    padding: 10px 50px;
+    margin-bottom: 5px;
+    transition: 0.5s;
+    border-radius: 5px;
+    background-color: #d0312d;
+    border-color: #d0312d;
+}
+
+#contact .contact form .row .col.button {
+    border: none;
+}
+
+
+/* Style buttons */
+
+#contact .contact form .row .col button.buttonload {
+    color: #ffff;
+    background-color: black;
+    cursor: pointer;
+    padding: 10px 50px;
+    margin-bottom: 5px;
+}
+
+#contact .alert {
+    text-align: center;
+}
+
+#contact .alert i {
+    color: black;
+    font-weight: 500;
+}
+
+#contact .alert a {
+    color: black;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+#contact .alert a:hover {
+    color: red;
+}
+
+@media (max-width: 425px) {
+    #contact .contact form .row .col textarea {
+        border: none;
+        outline: none;
+        background-color: #eaeaea;
+        color: black;
+        font-size: 100%;
+        margin: 10px 0;
+    }
+    #contact .contact form .row .col input {
+        border: none;
+        outline: none;
+        background-color: #eaeaea;
+        color: black;
+        font-size: 100%;
+        margin: 5px 0;
+    }
+    #contact .contact form .row .col label i {
+        color: black;
+        font-size: 100%;
+    }
+    #contact .contact form .row .col button {
+        color: black;
+        cursor: pointer;
+        padding: 5px 25px;
+        margin-bottom: 5px;
+        transition: 0.5s;
+        border-radius: 5px;
+    }
+    #contact .contact form .row .col button:last-child {
+        color: #ffff;
+        cursor: pointer;
+        padding: 5px 25px;
+        margin-bottom: 5px;
+        transition: 0.5s;
+        border-radius: 5px;
+        background-color: #d0312d;
+        border-color: #d0312d;
+    }
+    #contact .contact form .row .col button:last-child:hover {
+        color: #ffff;
+        cursor: pointer;
+        padding: 10px 50px;
+        margin-bottom: 5px;
+        transition: 0.5s;
+        border-radius: 5px;
+        background-color: #d0312d;
+        border-color: #d0312d;
+    }
+    #contact .contact form .row .col button:hover {
+        color: #ffff;
+        background-color: black;
+        cursor: pointer;
+        padding: 5px 25px;
+        margin-bottom: 5px;
+        transition: 0.5s;
+        border-radius: 5px;
+    }
+    #contact .contact form .row .col button.buttonload {
+        color: #ffff;
+        background-color: black;
+        cursor: pointer;
+        padding: 5px 25px;
+        margin-bottom: 5px;
+        transition: 0.5s;
+        border-radius: 5px;
+    }
+}
+
+
+/* akhir contact */

@@ -1,0 +1,77 @@
+.container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+table {
+    width: 95%;
+    height: 100%;
+    margin-bottom: 100px;
+}
+
+table tr {
+    text-align: center;
+    color: #555;
+}
+
+table tr th {
+    color: #555;
+    border: 1px solid #ddd;
+    padding: 20px 0;
+}
+
+table tr td {
+    color: #555;
+    border: 1px solid #ddd;
+}
+
+table tr td form {
+    cursor: pointer;
+}
+
+table tr td form svg path {
+    color: rgb(239, 93, 93);
+}
+
+table tr td:nth-child(1) form:hover svg path {
+    color: red;
+}
+
+table tr td:nth-child(3) a {
+    color: #ff6666;
+    text-decoration: none;
+}
+
+table tr td:nth-child(3) a:hover {
+    color: red;
+}
+
+table tr td img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+table tr td:nth-child(6) form {
+    color: #555;
+    background-color: #ffff;
+    font-weight: normal;
+    font-weight: 300;
+    cursor: pointer;
+    border: 1px solid #555;
+    padding: 5px 10px;
+    display: inline-block;
+}
+
+table tr td:nth-child(6) form:hover {
+    color: #ff6666;
+    background-color: #ffff;
+    font-weight: normal;
+    font-weight: 300;
+    cursor: pointer;
+    border: 1px solid #ff6666;
+    padding: 5px 10px;
+    transition: 0.3s;
+    display: inline-block;
+}
