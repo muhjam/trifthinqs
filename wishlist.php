@@ -3,343 +3,328 @@
 session_start();
 require 'assets/php/functions.php';
 
-if(isset($_SESSION['level'])){
+if(isset($_SESSION['level']))
+{
 $level=$_SESSION['level'];
 $username=$_SESSION['username'];
 $email=$_SESSION['email'];
 $id_u=$_SESSION['id'];
-// notif cart
-$cart=mysqli_query(koneksi(),"SELECT * FROM cart WHERE id_u='$id_u'");
 }
-
-
 // jenis produk
 $jenisProduk=query("SELECT * FROM jenis_produk");
-
-
 if(isset($_SESSION['level'])){
 // profile
 $profile=query("SELECT * FROM users WHERE id='$id_u'")['0'];
 }
-
-
-
-
-
-if(isset($_POST['cart'])){
-	$conn=koneksi();	
-$id_c=$_POST['cart'];
-
-$ada=mysqli_query($conn,"SELECT * FROM cart WHERE id_u='$id_u' AND id_p='$id_c'");
-
-
-if(mysqli_fetch_assoc($ada)){
-
-
-}else{
-
-mysqli_query($conn, "INSERT INTO cart (`id_u`, `id_p`) VALUE ('$id_u', '$id_c') ");
-
-}
-
-
-}
-
-
-if(isset($_POST['remove'])){
-	$conn=koneksi();	
-
-$id_r=$_POST['remove'];
-
-mysqli_query($conn, "DELETE FROM `wish` WHERE id_u='$id_u' AND id_p='$id_r' ");
-
-
-}
-
-
-
 $wishlist=mysqli_query(koneksi(), "SELECT * FROM wish, produk WHERE id_p=produk.id AND id_u='$id_u'");
 
 
+// shopping cart	
+if(isset($_POST['addCart'])){
 
+	if(isset($_COOKIE['shopping_cart'])){
+		$cookie_data=stripcslashes($_COOKIE['shopping_cart']);
+		$cart_data=json_decode($cookie_data, true);
+	}else{
+		$cart_data=array();
+	}
+	$item_id_list= array_column($cart_data, 'id');
+
+if(in_array($_POST['id_c'], $item_id_list)){
+
+	foreach($cart_data as $keys => $product){
+		if($cart_data[$keys]["id"]== $_POST['id_c']){
+			// jumlah barangnya bisa di masukin di sini
+		}
+	}
+	
+}else{
+	$item_array= array(
+		'id'=>$_POST['id_c'],
+		'code'=>$_POST['code_c'],
+		'name'=>$_POST['name_c'],
+		'type'=>$_POST['type_c'],
+		'size'=>$_POST['size_c'],
+		'price'=>$_POST['price_c'],
+		'image'=>$_POST['image_c']
+);
+$cart_data[]=$item_array;
+}
+$item_data=json_encode($cart_data);
+setcookie('code', hash('sha256', $item_data), time()+(86400*30),"/");
+setcookie('shopping_cart', $item_data, time()+(86400*30),"/");
+}
+if(isset($_POST["removeCart"])){
+	$cookie_data=stripcslashes($_COOKIE['shopping_cart']);
+	$cart_data=json_decode($cookie_data, true);
+	foreach($cart_data as $keys=>$product){
+		if($cart_data[$keys]['id']==$_POST['id_c']){
+			unset($cart_data[$keys]);
+			$item_data = json_encode($cart_data);
+			setcookie('code', hash('sha256', $item_data), time()+(86400*30),"/");
+			setcookie('shopping_cart', $item_data, time()+(86400*30),"/");
+		}
+	}
+}
  ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta name="description" content="GoturthinQs. trifthing shop fashion in Bandung, Indonesia" />
-	<meta name="generator" content="Eleventy v1.0.1" />
-	<meta name="keywords" content="trifthing, fashion, online shop" />
-	<meta name="author" content="Muhamad Jamaludin" />
-	<link rel="apple-touch-icon" sizes="180x180" href="assets/img/icon.png" />
-	<link rel="shortcut icon" href="assets/img/icon.png" />
-	<!-- icon -->
-	<link rel="icon" href="assets/icon/icon.png" />
+	<head>
+		<!-- awal head -->
+		<?php include 'head.php'; ?>
+		<!-- akhir head -->
+		<!-- my css -->
+		<link rel="stylesheet" href="assets/css/wishlist.css" />
+	</head>
 
-	<title>GoturthinQs.</title>
+	<body>
+		<!-- awal isi konten -->
 
-	<!-- font awesome -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+		<!-- awal navbar -->
+		<?php include 'nav.php'; ?>
+		<!-- akhir navbar -->
 
-	<!-- Add icon library -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<!-- awal isi wishlist -->
+		<div class="title">
+			<h3>Wishlist</h3>
+			<div class="sub-title">
+				<a href="index.php">home</a> / <a href="index.php#shop">shop</a> / <a href="#" id="point">wishlist</a>
+			</div>
+		</div>
 
-	<!-- my css -->
-	<link rel="stylesheet" href="assets/css/nav.css" />
-	<link rel="stylesheet" href="assets/css/wishlist.css" />
-	<link rel="stylesheet" href="assets/css/title.css" />
+		<section class="container">
 
-	<!-- Google Fonts -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link
-		href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-		rel="stylesheet">
+			<?php if(mysqli_fetch_assoc($wishlist)): ?>
 
+			<?php 
+			$btn=1;
+			?>
+			<div class="produk" data-aos="flip-left" style="margin-bottom:100px;">
+				<?php foreach($wishlist as $product): ?>
+				<div class="news-item">
+					<a href="product.php?number=<?= $product['id'];?>">
+						<div class="border">
+							<img src="assets/img/<?= $product['gambar']?>">
+						</div>
+						<h4><?= $product['nama_produk']; ?></h4>
+						<p><?= idr($product["harga"]); ?></p>
+					</a>
+					<div class="button">
 
-	<!-- AOS -->
-	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-</head>
+						<?php 
+					$code_p1=$product['kode_produk']; 
+					$code_p="'".$code_p1."'";
+					$name_p1=$product['nama_produk']; 
+					$name_p="'".$name_p1."'";
+					$type_p1=$product['jenis_produk']; 
+					$type_p="'".$type_p1."'";
+					$size_p1=$product['ukuran']; 
+					$size_p="'".$size_p1."'";
+					$price_p1=$product['harga']; 
+					$price_p="'".$price_p1."'";
+					$image_p1=$product['gambar']; 
+					$image_p="'".$image_p1."'";
+				?>
+						<button type="button" id="<?= $btn;?>"
+							onclick="addCart(<?= $code_p.','.$product['id'].','.$name_p.','.$type_p.','.$size_p.','.$price_p.','.$image_p;?>,this.id)"
+							class="cart1 <?php if(strpos($cookie_data, $product['kode_produk'])!==false){echo'd-none';}else{}?>">ADD
+							TO
+							CART</button>
+						<?php $btn++; ?>
+						<button type="button" id="<?= $btn;?>"
+							onclick="removeCart(<?= $code_p.','.$product['id'].','.$name_p.','.$type_p.','.$size_p.','.$price_p.','.$image_p;?>,this.id)"
+							class="cart2 <?php if(strpos($cookie_data, $product['kode_produk'])!==false){}else{echo'd-none';}?>">ADD
+							TO
+							CART</button>
 
-<body>
-	<!-- awal isi konten -->
+						<?php $btn++; ?>
 
-	<!-- awal navbar -->
-	<nav>
-		<ul class="nav-list">
-			<li id="shop-nav">
-				<a>Shop</a>
-				<ul class="shop nav-dropdown">
-					<li>
-						<h1>Collections</h1>
-					</li>
+						<?php 
+					$setWish=$id_u.','.$product['id']; 
+					$id_p=$product['id'];
+					$adaWish=query("SELECT * FROM wish WHERE id_u='$id_u' AND id_p='$id_p'");
+					?>
+						<button type="submit" id="<?= $btn;?>" onclick="addWish(<?= $setWish?>,this.id)"
+							class="love1 <?php if(!empty($adaWish)){echo"d-none";} ?>"><i class="fas fa-heart"></i></button>
+						<?php $btn++; ?>
+						<button type="submit" id="<?= $btn;?>" onclick="removeWish(<?= $setWish?>,this.id)"
+							class="love2 <?php if(empty($adaWish)){echo"d-none";} ?>"><i class=" fas fa-heart"></i></button>
+						<?php $btn++; ?>
+					</div>
+				</div>
+				<?php endforeach; ?>
+			</div>
 
-					<?php foreach($jenisProduk as $jenis): ?>
-					<form action="index.php" method="post" id="theForm<?= $jenis['jenis_produk'];?>">
-						<input type="hidden" name="type" value="<?=$jenis['jenis_produk'];?>">
-						<li><a style="cursor:pointer;"
-								onclick=" document.getElementById('theForm<?= $jenis['jenis_produk'];?>').submit();"><?=$jenis['jenis_produk'];?></a>
-						</li>
-					</form>
-					<?php endforeach; ?>
-					<form action="index.php#shop" method="post" id='allItems'></form>
-					<li><a style="cursor:pointer;" onclick="document.getElementById('allItems').submit();"> All Items</a></li>
-				</ul>
-			</li>
-
-			<li>
-				<a href="contact.php">Contact</a>
-			</li>
-			<li>
-
-				<?php if(isset($_SESSION['level'])): ?>
-				<?php if($_SESSION['level']=='admin'): ?>
-			<li>
-				<a href="admin/">Dashboard</a>
-			</li>
-			<li>
-				<?php endif; ?>
-				<?php endif; ?>
-
-		</ul>
-
-		<a href="index.php" id="logo">
-			<h1>GoturthinQs<span>.</span></h1>
-		</a>
-
-		<ul class="right">
-			<li>
-				<form action="index.php" method="post">
-					<input type="search" name="search" id="search" autocomplete="off"
-						value="<?php if(isset($_POST['search'])){echo $search;}?>">
-					<label class="fas fa-search" for="search"></label>
-				</form>
-			</li>
-
-			<?php if(isset($_SESSION['level'])): ?>
-			<?php if($_SESSION['level']=='user'||$_SESSION['level']=='admin'): ?>
-			<li id="notif-cart">
-				<a href="cart.php">
-					<i class="fas fa-cart-arrow-down"></i>
-					<?php if(mysqli_fetch_assoc($cart)): ?>
-					<span class="notif"><?= mysqli_num_rows($cart); ?></span>
-					<?php endif; ?>
-				</a>
-			</li>
-
-			<li>
-				<a href="wishlist.php"><i class="fas fa-heart active"></i>
-				</a>
-			</li>
-
-
-			<li id="profile">
-				<a>
-					<img id="profile" src="assets/profile/<?=$profile['foto']?>" alt="<?=$profile['username']?>"
-						title="<?=$profile['username']?>"
-						style="width:35px; height:35px; object-fit:cover;border-radius:50%;border:2px solid #d6d6d6;">
-				</a>
-				<ul class="profile nav-dropdown">
-					<li><a href="#!">Profile</a></li>
-					<li><a href="logout.php">Logout</a></li>
-				</ul>
-			</li>
+			<?php else: ?>
+			<div style="padding:0 0 200px 0;text-align:center;">
+				<h1
+					style="color:#a9a9a9;font-family: 'Open Sans', sans-serif;margin-top:120px;text-align:center;text-transform:uppercase;font-weight:400;">
+					WISHLIST IS EMPTY</h1>
+			</div>
 			<?php endif; ?>
-			<?php endif; ?>
+		</section>
+		<!-- akhir isi wishlist -->
 
-			<?php if(!isset($_SESSION['level'])): ?>
-			<li id="login">
-				<a href="login.php">Login</a>
-			</li>
-			<?php endif; ?>
-		</ul>
+		<!-- awal footer -->
+		<?php include 'footer.php'; ?>
+		<!-- akhir footer -->
 
-	</nav>
-	<!-- akhir navbar -->
+		<script>
+		function addWish(id_u, id_w, btn) {
+			const scriptURL = "http://localhost/GoturthinQs/assets/php/functions_wishlist.php";
+			var love1 = document.getElementById(btn);
+			var love2 = document.getElementById(parseInt(btn) + 1);
 
+			fetch(scriptURL, {
+					method: "POST",
+					body: new URLSearchParams("id_w=" + id_w),
+				})
+				.then((response) => {
+					love1.classList.add("d-none");
+					love2.classList.remove("d-none");
 
+					console.log("Success!", response);
 
-	<!-- awal isi wishlist -->
-	<div class="title">
-		<h3>Wishlist</h3>
-		<div class="sub-title">
-			<a href="index.php">home</a> / <a href="index.php#shop">shop</a> / <a href="#" id="point">wishlist</a>
-		</div>
-	</div>
+				})
+				.catch((error) => {
+					console.error("Error!", error.message);
+				});
+		}
 
-	<section class="container">
+		function removeWish(id_u, id_w, btn) {
+			const scriptURL = "http://localhost/GoturthinQs/assets/php/functions_wishlist.php";
+			var love2 = document.getElementById(btn);
+			var love1 = document.getElementById(btn - 1);
 
-		<?php if(mysqli_fetch_assoc($wishlist)): ?>
-		<table cellpadding="10" cellspacing="0">
-			<tr>
-				<th></th>
-				<th></th>
-				<th>Product</th>
-				<th>Size</th>
-				<th>Price</th>
-				<th></th>
-			</tr>
+			fetch(scriptURL, {
+					method: "POST",
+					body: new URLSearchParams("id_w=" + id_w),
+				})
+				.then((response) => {
+					love1.classList.remove("d-none");
+					love2.classList.add("d-none");
 
-			<?php foreach($wishlist as $product): ?>
-			<tr>
-				<td>
-					<form action="" method="post" onclick="submit()">
-						<input type="hidden" value="<?= $product['id'];?>" name="remove">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg"
-							viewBox="0 0 16 16">
-							<path
-								d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
-						</svg>
-					</form>
-				</td>
-				<td><img src="assets/img/<?= $product['gambar'];?>"></td>
-				<td>
-					<a href="product.php?number=<?= $product['id'];?>"><?= $product['nama_produk'];?></a>
-				</td>
-				<td><?= $product['ukuran'];?></td>
-				<td><?= idr($product['harga']);?></td>
-				<td>
-					<form action="" method="post" onclick="submit()">
-						<input type="hidden" value="<?= $product['id'];?>" name="cart">
-						ADD TO CART
-					</form>
-				</td>
-			</tr>
-			<?php endforeach; ?>
+					console.log("Success!", response);
 
-		</table>
-		<?php else: ?>
-		<div style="padding:0 0 200px 0;text-align:center;">
-			<h1
-				style="color:#a9a9a9;font-family: 'Open Sans', sans-serif;margin-top:120px;text-align:center;text-transform:uppercase;font-weight:400;">
-				WISHLIST IS EMPTY</h1>
-		</div>
-		<?php endif; ?>
-	</section>
-
-	<!-- akhir isi wishlist -->
+				})
+				.catch((error) => {
+					console.error("Error!", error.message);
+				});
+		}
 
 
+		function addCart(code_c, id_c, name_c, type_c, size_c, price_p, image_c, btn) {
+			const scriptURL = "http://localhost/GoturthinQs/wishlist.php";
+			const notifCart = document.querySelector("#notif-cart");
+			var cart1 = document.getElementById(btn);
+			var cart2 = document.getElementById(parseInt(btn) + 1);
 
+			fetch(scriptURL, {
+					method: "POST",
+					body: new URLSearchParams("addCart&code_c=" + code_c + "&id_c=" + id_c + "&name_c=" + name_c + "&type_c=" +
+						type_c + "&size_c=" + size_c + "&price_c=" + price_p + "&image_c=" + image_c),
+				})
+				.then((response) => {
+					cart1.classList.add("d-none");
+					cart2.classList.remove("d-none");
+					// buat object ajax
+					var xhr = new XMLHttpRequest();
 
+					// cek kesiapan ajax
+					xhr.onreadystatechange = function() {
+						if (xhr.readyState == 4 && xhr.status == 200) {
+							notifCart.innerHTML = xhr.responseText;
+						}
+					};
 
+					// eksekusi ajax
+					xhr.open("GET", "assets/ajax/notifcart.php", true);
+					xhr.send();
 
+					console.log("Success!", response);
+				})
+				.catch((error) => {
+					console.error("Error!", error.message);
+				});
+		}
 
-	<!-- awal footer -->
-	<!-- Site footer -->
-	<footer class="site-footer">
-		<div class="container-top">
-			<div class="col">
-				<h6>About</h6>
-				<p class="text-justify">GoturthinQs<span>.</span> is trifthing shop fashion in Bandung, Indonesia. Our
-					product 100% original, no refund. You can buy our product to come to our store or you can order via online.
-				</p>
-			</div>
+		function removeCart(code_c, id_c, name_c, type_c, size_c, price_p, image_c, btn) {
+			const scriptURL = "http://localhost/GoturthinQs/wishlist.php";
+			var cart2 = document.getElementById(btn);
+			var cart1 = document.getElementById(btn - 1);
+			const notifCart = document.querySelector("#notif-cart");
 
-			<div class="col">
-				<h6>Quick Links</h6>
-				<ul class="footer-links">
-					<li><a href="index.php#">Home</a></li>
-					<li><a href="index.php#container">Product Us</a></li>
-					<li><a href="contact.php">Contact Us</a></li>
-				</ul>
-			</div>
-		</div>
-		<hr>
-		</div>
+			fetch(scriptURL, {
+					method: "POST",
+					body: new URLSearchParams("removeCart&code_c=" + code_c + "&id_c=" + id_c + "&name_c=" + name_c + "&type_c=" +
+						type_c + "&size_c=" + size_c + "&price_c=" + price_p + "&image_c=" + image_c),
+				})
+				.then((response) => {
+					cart1.classList.remove("d-none");
+					cart2.classList.add("d-none");
 
-		<div class="container-bottom">
-			<div class="col">
-				<p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by
-					<a href="https://www.instagram.com/muhamadjamaludinpad/">Muhamad Jamaludin</a>.
-				</p>
-			</div>
+					// buat object ajax
+					var xhr = new XMLHttpRequest();
 
-			<div class="col">
-				<ul class="social-icons">
-					<li><a class="facebook" href="https://www.facebook.com/profile.php?id=100078019380277" target="_blank"><i
-								class="fab fa-facebook-f"></i></a></li>
-					<li><a class="twitter" href="https://twitter.com/muhjmlpad" target="_blank"><i class="fab fa-twitter"></i></a>
-					</li>
-					<li><a class="instagram" href="https://www.instagram.com/goturthings/" target="_blank"><i
-								class="fab fa-instagram"></i></a>
-					</li>
-					<li><a class="whatsapp"
-							href="https://api.whatsapp.com/send?phone=6283124356686&text=Salam kenal Admin Goturthinqs."
-							target="_blank"><i class="fab fa-whatsapp"></i></a></li>
-				</ul>
-			</div>
-		</div>
-	</footer>
-	<!-- akhir footer -->
+					// cek kesiapan ajax
+					xhr.onreadystatechange = function() {
+						if (xhr.readyState == 4 && xhr.status == 200) {
+							notifCart.innerHTML = xhr.responseText;
+						}
+					};
 
-	<!-- AOS -->
-	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-	<script>
-	AOS.init();
-	</script>
+					// eksekusi ajax
+					xhr.open("GET", "assets/ajax/notifcart.php", true);
+					xhr.send();
 
-	<!-- jquery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+					console.log("Success!", response);
+				})
+				.catch((error) => {
+					console.error("Error!", error.message);
+				});
+		}
 
-	<!-- navbar -->
-	<script src="assets/js/nav.js"></script>
+		// function removeWish(id_u, id_w, btn) {
+		// 	const scriptURL = "http://localhost/GoturthinQs/assets/php/functions_wish.php";
 
+		// 	var love2 = document.getElementById(btn);
+		// 	var love1 = document.getElementById(btn - 1);
+		// 	const notiflove = document.querySelector("#notif-wish");
+		// 	fetch(scriptURL, {
+		// 			method: "POST",
+		// 			body: new URLSearchParams("id_w=" + id_w),
+		// 		})
+		// 		.then((response) => {
+		// 			love1.classList.remove("d-none");
+		// 			love2.classList.add("d-none");
 
-	<!-- to Top -->
-	<script src="assets/js/toTop.js"></script>
+		// 			console.log("Success!", response);
 
-	<!-- contact -->
-	<script src="assets/js/contact.js"></script>
+		// 			// buat object ajax
+		// 			var xhr = new XMLHttpRequest();
 
-	<!-- zoomimage -->
-	<script src="assets/js/zoomImg.js"></script>
+		// 			// cek kesiapan ajax
+		// 			xhr.onreadystatechange = function() {
+		// 				if (xhr.readyState == 4 && xhr.status == 200) {
+		// 					notifCart.innerHTML = xhr.responseText;
+		// 				}
+		// 			};
 
-</body>
+		// 			// eksekusi ajax
+		// 			xhr.open("GET", "assets/ajax/notifcart.php?id_u=" + id_u, true);
+		// 			xhr.send();
+
+		// 		})
+		// 		.catch((error) => {
+		// 			console.error("Error!", error.message);
+		// 		});
+		// }
+		</script>
+
+		<!-- navbar -->
+		<script src="assets/js/nav_wish.js"></script>
+
+	</body>
 
 </html>

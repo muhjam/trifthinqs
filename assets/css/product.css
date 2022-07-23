@@ -1,295 +1,269 @@
 .container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 100px;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 100px;
+  flex-wrap: wrap;
 }
 
 .container .card-product {
-    display: flex;
-    justify-content: space-between;
-    width: 50%;
-    flex-wrap: wrap;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    padding-right: 3px;
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  flex-wrap: wrap;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding-right: 3px;
 }
 
 .container .img-product {
-    width: 45%;
+  width: 45%;
 }
 
 #myImg {
-    cursor: pointer;
-    transition: 0.3s;
-    display: block;
-    width: 100%;
-    object-fit: cover;
-    border: 2px solid #7f7f7f;
-    border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  border: 2px solid #7f7f7f;
+  border-radius: 10px;
 }
 
 #myImg:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
-
 
 /* The Modal (background) */
 
 .modal {
-    display: none;
-    /* Hidden by default */
-    position: fixed;
-    /* Stay in place */
-    z-index: 900;
-    /* Sit on top */
-    padding-top: 100px;
-    /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%;
-    /* Full width */
-    height: 100%;
-    /* Full height */
-    overflow: auto;
-    /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0);
-    /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.9);
-    /* Black w/ opacity */
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 900;
+  /* Sit on top */
+  padding-top: 100px;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.9);
+  /* Black w/ opacity */
 }
-
 
 /* Modal Content (image) */
 
 @media (min-width: 425px) {
-    .modal-content {
-        margin: auto;
-        display: block;
-        width: 75%;
-        max-width: 30%;
-    }
+  .modal-content {
+    margin: auto;
+    display: block;
+    width: 75%;
+    max-width: 30%;
+  }
 }
 
 @media (max-width: 424px) {
-    .modal-content {
-        margin: auto;
-        display: block;
-        width: 75%;
-        max-width: 75%;
-    }
+  .modal-content {
+    margin: auto;
+    display: block;
+    width: 75%;
+    max-width: 75%;
+  }
 }
 
-
 /* Caption of Modal Image */
-
 
 /* Add Animation */
 
 .modal-content {
-    -webkit-animation-name: zoom;
-    -webkit-animation-duration: 0.6s;
-    animation-name: zoom;
-    animation-duration: 0.6s;
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s;
 }
 
 .out {
-    animation-name: zoom-out;
-    animation-duration: 0.6s;
+  animation-name: zoom-out;
+  animation-duration: 0.6s;
 }
 
 @-webkit-keyframes zoom {
-    from {
-        -webkit-transform: scale(1);
-    }
-    to {
-        -webkit-transform: scale(2);
-    }
+  from {
+    -webkit-transform: scale(1);
+  }
+  to {
+    -webkit-transform: scale(2);
+  }
 }
 
 @keyframes zoom {
-    from {
-        transform: scale(0.4);
-    }
-    to {
-        transform: scale(1);
-    }
+  from {
+    transform: scale(0.4);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 @keyframes zoom-out {
-    from {
-        transform: scale(1);
-    }
-    to {
-        transform: scale(0);
-    }
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
+  }
 }
 
 .container .dec-product {
-    width: 50%;
+  width: 50%;
 }
 
 .container .dec-product h1 {
-    font-family: "Montserrat", sans-serif;
-    color: black;
-    font-weight: 500;
-    margin: 5px 0;
+  font-family: "Montserrat", sans-serif;
+  color: black;
+  font-weight: 500;
+  margin: 5px 0;
 }
 
 .container .dec-product h2 {
-    font-family: "Montserrat", sans-serif;
-    color: black;
-    font-weight: 500;
+  font-family: "Montserrat", sans-serif;
+  color: black;
+  font-weight: 500;
 }
 
 .container .dec-product p {
-    font-family: "Montserrat", sans-serif;
-    color: black;
-    font-weight: 500;
-    padding-bottom: 5px;
+  font-family: "Montserrat", sans-serif;
+  color: black;
+  font-weight: 500;
+  padding-bottom: 5px;
 }
 
 .container .dec-product span {
-    color: black;
-    font-weight: normal;
-    font-weight: 300;
+  color: black;
+  font-weight: normal;
+  font-weight: 300;
 }
 
 .container .dec-product .button {
-    margin-top: 20px;
-    margin-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .container .dec-product .button form {
-    display: inline;
+  display: inline;
 }
 
-.container .dec-product .button form:nth-child(2) button.love2 {
-    color: #ffff;
-    background-color: salmon;
+.container .dec-product .button form button.love2 {
+  color: #ffff;
+  background-color: salmon;
 }
 
-.container .dec-product .button form button {
-    color: black;
-    background-color: #ffff;
-    font-weight: normal;
-    font-weight: 300;
-    cursor: pointer;
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 5px 10px;
-    transition: 0.3s;
+.container .dec-product .button button {
+  color: black;
+  background-color: #ffff;
+  font-weight: normal;
+  font-weight: 300;
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px 10px;
+  transition: 0.3s;
 }
 
-.container .dec-product .button form button.cart2 {
-    color: #ffff;
-    background-color: black;
+.container .dec-product .button button.cart2 {
+  color: #ffff;
+  background-color: black;
 }
 
-.container .dec-product .button form button.cart2:hover {
-    color: #ffff;
+.container .dec-product .button button.cart2:hover {
+  color: #ffff;
 }
 
-.container .dec-product .button form:nth-child(2) button.love2 {
-    color: #ffff;
-    background-color: salmon;
+.container .dec-product .button form button.love2 {
+  color: #ffff;
+  background-color: salmon;
 }
 
 .container .dec-product .button form button.love2 i {
-    color: #ffff;
+  color: #ffff;
 }
 
 .container .dec-product .button form button.love2:hover i {
-    color: #ffff;
+  color: #ffff;
 }
 
 .container .dec-product .button form button i {
-    color: black;
+  color: black;
 }
 
 .container .dec-product .button form button:hover i {
-    color: #ffff;
+  color: #ffff;
 }
 
-.container .dec-product .button form button:hover {
-    color: #ffff;
-    background-color: black;
-    font-weight: normal;
-    font-weight: 300;
-    cursor: pointer;
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 5px 10px;
-}
-
-.container .dec-product .button form button.btn-login {
-    color: salmon;
-    background-color: #ffff;
-    font-weight: normal;
-    font-weight: 300;
-    cursor: pointer;
-    border: 1px solid salmon;
-    border-radius: 5px;
-    padding: 5px 10px;
-}
-
-.container .dec-product .button form button.btn-login:hover {
-    color: #ffff;
-    background-color: salmon;
-    font-weight: normal;
-    font-weight: 300;
-    cursor: pointer;
-    border: 1px solid salmon;
-    border-radius: 5px;
-    padding: 5px 10px;
+.container .dec-product .button button:hover {
+  color: #ffff;
+  background-color: black;
+  font-weight: normal;
+  font-weight: 300;
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px 10px;
 }
 
 .container .dec-product table {
-    margin: 20px 0;
+  margin: 20px 0;
 }
 
 .container .dec-product table tr td {
-    font-family: "Montserrat", sans-serif;
-    color: black;
-    font-weight: 300;
+  font-family: "Montserrat", sans-serif;
+  color: black;
+  font-weight: 300;
 }
 
 .container .dec-product table tr td:first-child {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .container .dec-product table tr td:nth-child(2) {
-    font-weight: 500;
-    padding: 2px 0;
+  font-weight: 500;
+  padding: 2px 0;
 }
 
 @media (max-width: 768px) {
-    #myImg {
-        border: none;
-    }
-    .container .dec-product h1 {
-        margin-top: 20px;
-    }
-    .container .card-product {
-        display: flex;
-        justify-content: space-around;
-        width: 95%;
-        flex-wrap: wrap;
-        box-shadow: none;
-        padding-right: none;
-    }
-    .container .dec-product {
-        width: 100%;
-        text-align: center;
-    }
-    .container .dec-product .button {
-        margin-bottom: 0;
-    }
-    .container .dec-product table {
-        margin: 10px auto;
-    }
-    #color {
-        margin: 0 auto;
-    }
+  #myImg {
+    border: none;
+  }
+  .container .dec-product h1 {
+    margin-top: 20px;
+  }
+  .container .card-product {
+    display: flex;
+    justify-content: space-around;
+    width: 95%;
+    flex-wrap: wrap;
+    box-shadow: none;
+    padding-right: none;
+  }
+  .container .dec-product {
+    width: 100%;
+    text-align: center;
+  }
+  .container .dec-product .button {
+    margin-bottom: 0;
+  }
+  .container .dec-product table {
+    margin: 10px auto;
+  }
+  #color {
+    margin: 0 auto;
+  }
 }

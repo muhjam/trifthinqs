@@ -44,17 +44,41 @@ session_unset();
 <html>
 
 <head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="Tempat trifthingnya Bandung" />
+	<meta name="keywords"
+		content="GoturthinQs, toko online, trifthing, jual barang bekas fashion, toko online bandung, toko online di bandung, goturthings, got your things, GBI, trifthing bandung" />
+	<meta name="author" content="Muhamad Jamaludin" />
 
-	<!-- awal head -->
-	<?php include 'head.php'; ?>
-	<!-- akhir head -->
+
+	<!--icon  -->
+	<link rel="icon" href="assets/icon/icon.png">
+
+
 
 	<!-- Bootstrap CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+	<!-- Font-Awessome -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@500&family=Montserrat:wght@300;400;500;600&family=Open+Sans:wght@600&display=swap"
+		rel="stylesheet">
+	<title>GoturthinQs.</title>
+
+
 	<!-- link my css -->
 	<link rel="stylesheet" href="assets/css/login.css">
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
 
 </head>
 

@@ -6,11 +6,11 @@ if(isset($_SESSION['level'])){
 $level=$_SESSION['level'];
 $username=$_SESSION['username'];
 $email=$_SESSION['email'];
-$id_u=$_SESSION['id'];$id_u=$_SESSION['id'];
+$id_u=$_SESSION['id'];
 }
 
 	$conn=koneksi();	
-	$id_w=$_POST['wish'];
+	$id_w=$_POST['id_w'];
 
 	$ada=mysqli_query($conn,"SELECT * FROM wish WHERE id_u='$id_u' AND id_p='$id_w'");
 

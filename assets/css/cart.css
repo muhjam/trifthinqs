@@ -1,0 +1,165 @@
+.container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 100px;
+}
+
+#container .action {
+  padding: 0 50px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#container .action form input {
+  color: rgb(27, 27, 27);
+  border: 1px solid #ddd;
+  padding-left: 5px;
+}
+#container .action form input:focus {
+  outline: 1px solid #ddd;
+  border-radius: 3px;
+}
+#container .action button {
+  width: 50px;
+  color: red;
+  cursor: pointer;
+  border: red 1px solid;
+  display: inline-block;
+  height: 20px;
+  border-radius: 3px;
+}
+#container .action button:hover {
+  border-radius: 3px;
+}
+#container .action form button:hover {
+  background-color: #dddd;
+}
+#container .action form button {
+  border: black solid 1px;
+  color: black;
+  height: auto;
+  width: auto;
+}
+
+.container .content {
+  overflow: scroll;
+  width: 80%;
+  height: 300px;
+}
+
+.container table {
+  width: 100%;
+}
+
+.container table tr td {
+  color: black;
+  vertical-align: top;
+  padding: 10px;
+}
+
+.container table tr td img {
+  object-fit: cover;
+}
+
+.container table tr.tr-product td {
+  border-bottom: 1px solid #dddd;
+}
+
+.container table tr td strong {
+  color: black;
+  font-weight: 600;
+}
+
+.container table tr td strong a {
+  color: black;
+  font-weight: 600;
+}
+
+.container table tr td strong a:hover {
+  color: red;
+  font-weight: 600;
+}
+
+.container table tr td a {
+  text-decoration: none;
+}
+
+.container table tr td a svg path {
+  color: red;
+}
+
+.container table tr td a#remove-mobile svg path {
+  display: none;
+}
+
+.container table tr td span {
+  color: black;
+}
+
+.container table tr td span strong {
+  color: black;
+  font-weight: 600;
+}
+
+.container table tr td i {
+  color: rgba(124, 124, 124, 0.867);
+  text-decoration: none;
+}
+
+.container .summary {
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.2);
+  width: auto;
+  height: 100%;
+  margin-top: 10px;
+}
+
+.container .summary p {
+  color: black;
+  margin: 5px 0;
+}
+
+.container .summary button {
+  margin-top: 5px;
+  color: black;
+  width: auto;
+  cursor: pointer;
+}
+
+#price-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .container table {
+    width: auto;
+  }
+  .container table tr td a#remove-mobile svg path {
+    display: inline-block;
+  }
+  .container table tr td#remove-desk {
+    display: none;
+  }
+  .container .content {
+    width: 90%;
+    height: auto;
+    max-height: 250px;
+  }
+  .container .summary {
+    width: 200px;
+  }
+  #price-mobile {
+    display: inline-block;
+  }
+  #price-desk {
+    display: none;
+  }
+}
+@media (max-width: 425px) {
+  #container .action {
+    padding: 0 5px;
+  }
+}

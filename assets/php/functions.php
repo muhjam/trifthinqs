@@ -334,9 +334,6 @@ function signup($data){
     // enkriosi password
 $password=password_hash($password, PASSWORD_DEFAULT);   
 
-
-
-
     // tambahkan user baru ke database
 mysqli_query($conn, "INSERT INTO `users`(`username`,`email`, `password`,  `level`, `kode_aktifasi`) VALUES ('$username','$email','$password','user','$kode_aktifasi')");
 

@@ -155,7 +155,8 @@ $sizes=query("SELECT * FROM ukuran");
 												<div class="form-group">
 													<label for="desc">Description</label>
 													<textarea class="form-control" placeholder="Discribe the product" id="desc"
-														style="height: 100px" name="keterangan"><?= $product['keterangan'];?></textarea>
+														style="height: 100px"
+														name="keterangan"><?= str_replace("<br/>","&#13",$product['keterangan']) ;?></textarea>
 												</div>
 											</div>
 											<!-- /.card-body -->
