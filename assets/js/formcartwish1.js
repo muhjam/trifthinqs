@@ -1,5 +1,5 @@
 const scriptURLw =
-  "http://localhost/GoturthinQs/assets/php/functions_wishlist.php";
+  "http://localhost/TrifthinQs./assets/php/functions_wishlist.php";
 const formw = document.forms["form-wish"];
 
 const love1 = document.querySelector(".love1");
@@ -44,7 +44,7 @@ formw.addEventListener("submit", (e) => {
 });
 
 function addCart(code_c, id_c) {
-  const scriptURL = "http://localhost/GoturthinQs/product.php";
+  const scriptURL = "http://localhost/TrifthinQs./product.php";
   const cart1 = document.querySelector(".cart1");
   const cart2 = document.querySelector(".cart2");
   const notifCart = document.querySelector("#notif-cart");

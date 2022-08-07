@@ -9,7 +9,7 @@ require 'query.php';
 
 <head>
 
-	<title>GoturthinQs.</title>
+	<title>TrifthinQs.</title>
 
 </head>
 
@@ -26,7 +26,7 @@ if (banLevel($id) > 0) {
         <script>
 			 Swal.fire({
   icon: 'success',
-  title: 'User GoturthinQs.!',
+  title: 'User TrifthinQs Store!',
   text: 'user successfully banned!'
 }).then(function(){
 document.location.href='users.php';
@@ -41,7 +41,7 @@ echo "
         	<script>
 	Swal.fire({
 		icon: 'error',
-		title: 'User GoturthinQs.!',
+		title: 'User TrifthinQs Store!',
 		text: 'Failed user banned!'
 	}).then(function() {
 		document.location.href = 'users.php';

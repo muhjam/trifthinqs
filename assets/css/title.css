@@ -1,5 +1,5 @@
 .title {
-  color: black;
+  color: #161b22;
   margin-bottom: 20px;
   margin: 100px 0 30px 20px;
 }
@@ -9,17 +9,17 @@
   text-transform: uppercase;
   font-weight: 600;
   font-size: 30px;
-  color: black;
+  color: #161b22;
 }
 
 .title .sub-title {
-  color: black;
+  color: #161b22;
   padding: 5px 8px;
 }
 
 .title .sub-title a {
   text-decoration: none;
-  color: black;
+  color: #161b22;
   text-transform: uppercase;
   font-weight: 400;
   font-size: 12px;

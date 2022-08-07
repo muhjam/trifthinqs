@@ -1,98 +1,165 @@
-@media (max-width: 767px) {
-    .logo {
-        margin: 30px auto 0 auto;
-    }
-    .logo h1 {
-        margin-bottom: -2px;
-        text-align: center;
-        font-weight: 400;
-        font-family: "Libre Bodoni", sans-serif;
-        text-transform: uppercase;
-        color: #151e3d;
-    }
-    .logo h1 span {
-        color: red;
-    }
-    .logo .subtitle {
-        color: rgba(0, 0, 0, 0.692);
-        text-align: center;
-        font-weight: 500;
-        font-family: "Montserrat", sans-serif;
-        text-transform: uppercase;
-        margin-bottom: 20px;
-    }
-    p {
-        color: red;
-        font-style: italic;
-        font-size: 15px;
-    }
-    .logo .subtitle {
-        color: rgba(0, 0, 0, 0.692);
-        text-align: center;
-        font-weight: 500;
-        font-family: "Montserrat", sans-serif;
-        text-transform: uppercase;
-        font-size: 10px;
-    }
+.form-login-float {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99999999;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  animation: fadeIn 0.3s;
 }
 
-@media (min-width: 768px) {
-    body {
-        background-image: url("../background/login.jpg");
-    }
-    .konten {
-        margin: 30px auto;
-        padding: 10px;
-        width: 50%;
-        height: 100%;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.2);
-        background-color: whitesmoke;
-        border-radius: 10px;
-    }
-    .logo {
-        margin: 30px auto 0 auto;
-        width: 50%;
-        height: 50%;
-    }
-    .logo h1 {
-        margin-bottom: -2px;
-        text-align: center;
-        font-weight: 400;
-        font-family: "Libre Bodoni", sans-serif;
-        text-transform: uppercase;
-        color: #151e3d;
-    }
-    .logo h1 span {
-        color: red;
-    }
-    .logo .subtitle {
-        color: rgba(0, 0, 0, 0.692);
-        text-align: center;
-        font-weight: 500;
-        font-family: "Montserrat", sans-serif;
-        text-transform: uppercase;
-        font-size: 20px;
-    }
-    p {
-        color: red;
-        font-style: italic;
-        font-size: 15px;
-    }
+.form-login-float .content {
+  padding: 20px 50px;
+  background-color: aliceblue;
+  border-radius: 5px;
+  width: 30%;
+  height: 320px;
+  overflow: auto;
 }
 
-.checkbox {
-    cursor: pointer;
+.form-login-float .content.content-verification {
+  height: auto;
 }
 
-.checkbox:focus {
-    box-shadow: none;
-    /* oranges! yey */
+.form-login-float .content h1 {
+  color: black;
 }
 
-form input[type="email"] {
-    text-transform: lowercase;
+.form-login-float .content h1 span {
+  color: red;
 }
 
-form input[type="email"]::placeholder {
-    text-transform: none;
+.form-login-float .content a {
+  color: black;
+  text-decoration: underline;
+}
+
+.form-login-float .content span {
+  color: black;
+}
+
+.form-login-float .content form div {
+  margin-top: 10px;
+}
+
+.form-login-float .content form div input {
+  width: 100%;
+  height: 30px;
+  margin-top: 5px;
+  color: black;
+  padding: 0 5px;
+}
+.form-login-float .content form div input[type="email"] {
+  text-transform: lowercase;
+}
+
+.form-login-float .content form div input:focus {
+  outline: none;
+}
+
+.form-login-float .content form div label {
+  color: black;
+  display: inline;
+  font-size: 16px;
+}
+
+.form-login-float .content form div .label a {
+  color: black;
+}
+
+.form-login-float .content form div .label i {
+  color: black;
+  padding: 0 5px;
+  cursor: pointer;
+}
+
+.form-login-float .content form div.password .checkbox {
+  margin-left: 5px;
+}
+
+.form-login-float .content form div .checkbox {
+  accent-color: black;
+  cursor: pointer;
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
+}
+
+.form-login-float .content form div.remember .checkbox {
+  margin-right: 5px;
+}
+
+.form-login-float .content form div .label {
+  display: flex;
+  align-items: center;
+}
+
+.form-login-float .content form div input[type="checkbox"] {
+  margin-top: 0;
+}
+
+.form-login-float .content form button {
+  margin: 10px 0 5px 0;
+  padding: 10px 10px;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+}
+
+.form-login-float .content form button:hover span {
+  opacity: 0.8;
+}
+
+.form-login-float .content form button span i {
+  margin-right: 5px;
+}
+
+.form-login-float .content form button:hover svg {
+  opacity: 0.8;
+}
+
+.form-login-float .content form button:hover path {
+  opacity: 0.8;
+}
+
+.form-login-float .content form button span {
+  color: #ffff;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.form-login-float .content form button svg {
+  color: #ffff;
+  transition: 0.3s;
+}
+
+.form-login-float .content form button svg path {
+  color: #ffff;
+  transition: 0.3s;
+}
+
+.form-login-float button.close {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: -1;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

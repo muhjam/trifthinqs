@@ -1,23 +1,22 @@
 <?php 
-// memeriksa sudah login atau belum
-session_start();
-require 'assets/php/functions.php';
-if(isset($_SESSION['level'])){
-$level=$_SESSION['level'];
-$username=$_SESSION['username'];
-$email=$_SESSION['email'];
-$id_u=$_SESSION['id'];
-// notif cart
-$wish=mysqli_query(koneksi(),"SELECT * FROM wish WHERE id_u='$id_u'");
-}
-// jenis produk
-$jenisProduk=query("SELECT * FROM jenis_produk");
-
-if(isset($_SESSION['level'])){
-// profile
-$profile=query("SELECT * FROM users WHERE id='$id_u'")['0'];
-}
+// session
+include "assets/section/session.php";
+// cart
 if(isset($_POST["removeCart"])){
+	$cookie_data=stripcslashes($_COOKIE['shopping_cart']);
+	$cart_data=json_decode($cookie_data, true);
+	foreach($cart_data as $keys=>$product){
+		if($cart_data[$keys]['code']==$_POST['code_c']){
+			$_SESSION['undoCart']= json_encode($cart_data);
+			$_SESSION['nameRemove']=$cart_data[$keys]['name'];
+			unset($cart_data[$keys]);
+			$item_data = json_encode($cart_data);
+			setcookie('code', hash('sha256', $item_data), time()+(86400*30),"/");
+			setcookie('shopping_cart', $item_data, time()+(86400*30),"/");
+		}
+	}
+}
+if(isset($_POST["sold"])){
 	$cookie_data=stripcslashes($_COOKIE['shopping_cart']);
 	$cart_data=json_decode($cookie_data, true);
 	foreach($cart_data as $keys=>$product){
@@ -42,25 +41,24 @@ if(isset($_POST["undoCart"])){
 }
  ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
 	<head>
 		<!-- awal head -->
-		<?php include 'head.php'; ?>
+		<?php include 'assets/section/head.php'; ?>
 		<!-- akhir head -->
-
 		<!-- my css -->
 		<link rel="stylesheet" href="assets/css/cart.css" />
-
 	</head>
 
 	<body>
+		<!-- awal login form -->
+		<?php include 'assets/login/login.php'; ?>
+		<!-- akhir login form -->
 		<!-- awal isi konten -->
-
 		<!-- awal navbar -->
-		<?php include 'nav.php'; ?>
+		<?php include 'assets/section/nav.php'; ?>
 		<!-- akhir navbar -->
 
 		<!-- awal isi cart -->
@@ -73,16 +71,37 @@ if(isset($_POST["undoCart"])){
 		</div>
 
 		<section id="container">
+			<?php if(isset($_POST['submit'])): ?>
+			<div class="alert-info">
+				<div class="alert-logo">
+					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+						class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+						<path
+							d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+					</svg>
+				</div>
+				<div class="alert-text">The code voucher "<?= $_POST['voucher'];?>" doesn't exist.</div>
+				<a class="close" onclick="close_alert('.alert-info')">
+					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg"
+						viewBox="0 0 16 16">
+						<path
+							d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+					</svg>
+				</a>
+			</div>
+			<?php endif; ?>
+
+
 			<?php if(isset($_COOKIE['code'])){
 			$code_hash=$_COOKIE['code'];
-		} 
-		?>
+			} 
+			?>
 			<?php if(isset($_COOKIE['shopping_cart'])&&isset($_COOKIE['code'])&&$code_hash===hash('sha256', $_COOKIE['shopping_cart'])&&strlen($_COOKIE['shopping_cart'])>16): ?>
 			<div class="action">
 				<button type="button" onclick="clearCart()">CLEAR</button>
-				<form>
+				<form action="" method="post" class="voucher">
 					<input type="text" placeholder="Voucher Code" name="voucher" maxlength="10" autocomplete="off">
-					<button>USE</button>
+					<button type="submit" name="submit">USE</button>
 				</form>
 			</div>
 			<?php endif; ?>
@@ -95,20 +114,26 @@ if(isset($_POST["undoCart"])){
 					$cart_data=json_decode($cookie_data, true);
 					?>
 					<table>
-						<?php foreach($cart_data as $keys => $product): ?>
+						<?php foreach($cart_data as $keys => $products): ?>
+						<?php 
+						$code=$products['code'];
+						$product=query("SELECT * FROM produk WHERE kode_produk='$code'")[0]; 
+						$code_p="'".$product['kode_produk']."'";
+						?>
 						<tr class="tr-product">
-							<td><img src="assets/img/<?= $product['image'];?>" width="100px" height="100px"></td>
-							<td><strong><a href="product.php?number=<?= $product['id'];?>"><?= $product['name']; ?></a></strong>
+							<td><img src="assets/img/<?= $product['gambar'];?>" width="100px" height="100px"></td>
+							<td><strong><a
+										href="product.php?number=<?= $product['id'];?>"><?= $product['nama_produk']; ?></a></strong>
 								<br>
-								<i><?= $product['code']; ?></i>
+								<i><?= $product['kode_produk']; ?></i>
 								<br>
-								Type - <strong><?= $product['type']; ?></strong>
+								Type - <strong><?= $product['jenis_produk']; ?></strong>
 								<br>
-								Size - <strong><?= $product['size']; ?></strong>
+								Size - <strong><?= $product['ukuran']; ?></strong>
 								<br>
-								<span id="price-mobile">Price - <strong><?= idr($product['price']);?></strong></span>
+								<span id="price-mobile">Price - <strong><?= idr($product['harga']);?></strong></span>
 								<br>
-								<a id="remove-mobile" onclick="removeCart(<?= $product['id'];?>)">
+								<a id="remove-mobile" onclick="removeCart(<?= $code_p;?>)">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
 										viewBox="0 0 16 16">
 										<path
@@ -119,7 +144,8 @@ if(isset($_POST["undoCart"])){
 								</a>
 							</td>
 
-							<td id="remove-desk"><a onclick="removeCart(<?= $product['id'];?>)">
+							<td id="remove-desk">
+								<a onclick="removeCart(<?= $code_p;?>)">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
 										viewBox="0 0 16 16">
 										<path
@@ -127,17 +153,25 @@ if(isset($_POST["undoCart"])){
 										<path fill-rule="evenodd"
 											d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
 									</svg>
-								</a></td>
-							<td id="price-desk"><?= idr($product['price']);?></td>
+								</a>
+							</td>
+
+							<td id="price-desk"><?= idr($product['harga']);?></td>
 						</tr>
-						<?php $total=$total + $product['price']; ?>
+						<?php $total=$total + $product['harga']; ?>
 						<?php endforeach; ?>
 					</table>
 				</div>
 				<div class="summary">
+					<p>SUMMARY : </p>
+					<span>&bull; <?= count($cart_data) ; ?> Items</span>
 					<p>TOTAL :</p>
 					<p><?= rupiah($total); ?></p>
+					<?php if(isset($_SESSION['level'])): ?>
 					<button>Check Out</button>
+					<?php else: ?>
+					<button onclick="login()">Check Out</button>
+					<?php endif; ?>
 				</div>
 				<?php else: ?>
 			</div>
@@ -158,116 +192,15 @@ if(isset($_POST["undoCart"])){
 		<!-- akhir isi cart -->
 
 		<!-- awal footer -->
-		<?php include 'footer.php'; ?>
+		<?php include 'assets/section/footer.php'; ?>
 		<!-- akhir footer -->
 
-
-		<script>
-		function removeCart(id_c) {
-			const scriptURL = "http://localhost/GoturthinQs/cart.php";
-			const container = document.querySelector("#container");
-
-			fetch(scriptURL, {
-					method: "POST",
-					body: new URLSearchParams("removeCart&id_c=" + id_c),
-				})
-				.then((response) => {
-
-					// buat object ajax
-					var xhr = new XMLHttpRequest();
-
-					// cek kesiapan ajax
-					xhr.onreadystatechange = function() {
-						if (xhr.readyState == 4 && xhr.status == 200) {
-							container.innerHTML = xhr.responseText;
-						}
-					};
-
-					// eksekusi ajax
-					xhr.open("GET", "assets/ajax/cart.php?id_c=" + id_c, true);
-					xhr.send();
-
-					console.log("Success!", response);
-				})
-				.catch((error) => {
-					console.error("Error!", error.message);
-				});
-		}
-
-		function clearCart() {
-			const scriptURL = "http://localhost/GoturthinQs/cart.php";
-			const container = document.querySelector("#container");
-			Swal.fire({
-				title: 'Are you sure?',
-				text: "You won't be able to revert this!",
-				icon: "warning",
-				showCancelButton: true,
-				confirmButtonColor: '#3085d6',
-				cancelButtonColor: '#d33',
-				confirmButtonText: 'Yes, clear cart!'
-			}).then((result) => {
-				if (result.isConfirmed) {
-					fetch(scriptURL, {
-							method: "POST",
-							body: new URLSearchParams("clearCart"),
-						})
-						.then((response) => {
-							Swal.fire(
-								'Cleaned!',
-								'Your cart has been cleaned.',
-								'success'
-							)
-							// buat object ajax
-							var xhr = new XMLHttpRequest();
-
-							// cek kesiapan ajax
-							xhr.onreadystatechange = function() {
-								if (xhr.readyState == 4 && xhr.status == 200) {
-									container.innerHTML = xhr.responseText;
-								}
-							};
-							// eksekusi ajax
-							xhr.open("GET", "assets/ajax/cart.php?cleanCart", true);
-							xhr.send();
-						})
-
-				}
-			})
-		}
-
-		function undo() {
-			const scriptURL = "http://localhost/GoturthinQs/cart.php";
-			const container = document.querySelector("#container");
-			fetch(scriptURL, {
-					method: "POST",
-					body: new URLSearchParams("undoCart"),
-				})
-				.then((response) => {
-					// buat object ajax
-					var xhr = new XMLHttpRequest();
-
-					// cek kesiapan ajax
-					xhr.onreadystatechange = function() {
-						if (xhr.readyState == 4 && xhr.status == 200) {
-							container.innerHTML = xhr.responseText;
-						}
-					};
-
-					// eksekusi ajax
-					xhr.open("GET", "assets/ajax/cart.php?undoCart", true);
-					xhr.send();
-
-					console.log("Success!", response);
-				})
-				.catch((error) => {
-					console.error("Error!", error.message);
-				});
-		}
-		</script>
-
+		<!-- my js -->
+		<script src="assets/js/cart.js"></script>
 		<!-- navbar -->
 		<script src="assets/js/nav_cart.js"></script>
-
+		<!-- voucher -->
+		<!-- <script src="assets/jquery/voucher.js"></script> -->
 
 	</body>
 

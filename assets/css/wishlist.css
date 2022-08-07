@@ -12,7 +12,7 @@
   }
   
   .button button {
-    color: black;
+    color: #161b22;
     background-color: #ffff;
     font-weight: normal;
     font-weight: 300;
@@ -25,7 +25,7 @@
   
   .button button.cart2 {
     color: #ffff;
-    background-color: black;
+    background-color: #161b22;
   }
   
   .button button.cart2:hover {
@@ -46,7 +46,7 @@
   }
   
   .button button i {
-    color: black;
+    color: #161b22;
   }
   
   .button button:hover i {
@@ -55,7 +55,7 @@
   
   .button  button:hover {
     color: #ffff;
-    background-color: black;
+    background-color: #161b22;
     font-weight: normal;
     font-weight: 300;
     cursor: pointer;
@@ -64,6 +64,12 @@
     padding: 5px 10px;
   }
 
+  #sold{
+  color:white;
+  background-color:red;
+  border:none;
+  font-weight:bold;
+  }
 
 
 
@@ -97,6 +103,7 @@
     width: 100%;
     overflow: hidden;
     border-radius: 5px;
+    position:relative;
 }
 
 .produk div.news-item a .border img {
@@ -106,12 +113,25 @@
     transition: 1s;
 }
 
+.produk div.news-item a .border #label {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.produk div.news-item a .border #label img{
+  width: 50px;
+  height: auto !important;
+  transition: none !important;
+  transform: none !important;
+}
+
 .produk h4 {
     font-size: 12px;
     font-weight: 600;
     font-family: "Montserrat", sans-serif;
     margin-top: 10px;
-    color: black;
+    color: #161b22;
 }
 
 .produk p {
@@ -119,7 +139,7 @@
     font-size: 10px;
     font-weight: 500;
     font-family: "Montserrat", sans-serif;
-    color: black;
+    color: #161b22;
 }
 /* akhir produk *
 

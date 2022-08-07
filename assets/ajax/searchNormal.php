@@ -1,17 +1,13 @@
 <?php 
 require '../php/functions.php';
 
-$query="SELECT * FROM jenis_produk INNER JOIN produk ON jenis_produk.jenis_produk=produk.jenis_produk INNER JOIN ukuran ON ukuran.ukuran = produk.ukuran ORDER BY produk.id DESC
+$query="SELECT * FROM produk ORDER BY produk.status ASC,id DESC
 					";
 
-$goturthings= query($query);
-
-
+$trifthinqs= query($query);
 // mengaharhkan ke normal page
 // if($keyword===''){
 // header("Refresh:0; url=index.php");
 // exit;
 // }
-
-
 ?>

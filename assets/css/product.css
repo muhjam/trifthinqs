@@ -128,26 +128,26 @@
 
 .container .dec-product h1 {
   font-family: "Montserrat", sans-serif;
-  color: black;
+  color: #161b22;
   font-weight: 500;
   margin: 5px 0;
 }
 
 .container .dec-product h2 {
   font-family: "Montserrat", sans-serif;
-  color: black;
+  color: #161b22;
   font-weight: 500;
 }
 
 .container .dec-product p {
   font-family: "Montserrat", sans-serif;
-  color: black;
+  color: #161b22;
   font-weight: 500;
   padding-bottom: 5px;
 }
 
 .container .dec-product span {
-  color: black;
+  color: #161b22;
   font-weight: normal;
   font-weight: 300;
 }
@@ -167,7 +167,7 @@
 }
 
 .container .dec-product .button button {
-  color: black;
+  color: #161b22;
   background-color: #ffff;
   font-weight: normal;
   font-weight: 300;
@@ -180,7 +180,7 @@
 
 .container .dec-product .button button.cart2 {
   color: #ffff;
-  background-color: black;
+  background-color: #161b22;
 }
 
 .container .dec-product .button button.cart2:hover {
@@ -201,7 +201,7 @@
 }
 
 .container .dec-product .button form button i {
-  color: black;
+  color: #161b22;
 }
 
 .container .dec-product .button form button:hover i {
@@ -210,7 +210,7 @@
 
 .container .dec-product .button button:hover {
   color: #ffff;
-  background-color: black;
+  background-color: #161b22;
   font-weight: normal;
   font-weight: 300;
   cursor: pointer;
@@ -225,7 +225,7 @@
 
 .container .dec-product table tr td {
   font-family: "Montserrat", sans-serif;
-  color: black;
+  color: #161b22;
   font-weight: 300;
 }
 
@@ -266,4 +266,11 @@
   #color {
     margin: 0 auto;
   }
+}
+
+#sold {
+  color: white;
+  background-color: red;
+  border: none;
+  font-weight: bold;
 }

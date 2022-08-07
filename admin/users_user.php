@@ -9,7 +9,7 @@ require 'query.php';
 
 <head>
 
-	<title>GoturthinQs.</title>
+	<title>TrifthinQs.</title>
 
 </head>
 
@@ -26,7 +26,7 @@ if (userLevel($id) > 0) {
         <script>
 			 Swal.fire({
   icon: 'success',
-  title: 'User GoturthinQs.!',
+  title: 'User TrifthinQs Store!',
   text: 'User successfully become normal user!'
 }).then(function(){
 document.location.href='users.php';
@@ -42,7 +42,7 @@ return false;
         	<script>
 	Swal.fire({
 		icon: 'error',
-		title: 'User GoturthinQs.!',
+		title: 'User TrifthinQs Store!',
 		text: 'Failed user to be normal user!'
 	}).then(function() {
 		document.location.href = 'users.php';

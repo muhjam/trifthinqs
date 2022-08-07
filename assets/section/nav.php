@@ -1,7 +1,23 @@
 <?php
-// notif wish
 if(isset($_SESSION['level'])){
+
+if(isset($_POST['logout'])){
+$_SESSION=[];
+session_unset();
+session_destroy();
+
+
+setcookie('email', '', time() - 90000);
+setcookie('key', '', time() - 90000);
+
+header("Refresh:0");
+exit;
+}
+
+	// notif wish
 	$wish=mysqli_query(koneksi(),"SELECT * FROM wish WHERE id_u='$id_u'");
+	// profile
+		$profile=query("SELECT * FROM users WHERE id='$id_u'")['0'];
 }
 // notif cart
 if(isset($_COOKIE['shopping_cart'])&&isset($_COOKIE['code'])&&$_COOKIE['code']===hash('sha256', $_COOKIE['shopping_cart'])){
@@ -9,6 +25,8 @@ if(isset($_COOKIE['shopping_cart'])&&isset($_COOKIE['code'])&&$_COOKIE['code']==
 	$cookie_data=stripcslashes($_COOKIE['shopping_cart']);
 	$cart_data=json_decode($cookie_data, true);
 }
+// jenis produk
+$jenisProduk=query("SELECT * FROM jenis_produk");
 ?>
 <link rel="stylesheet" href="assets/css/title.css" />
 <link rel="stylesheet" href="assets/css/nav.css" />
@@ -20,43 +38,39 @@ if(isset($_COOKIE['shopping_cart'])&&isset($_COOKIE['code'])&&$_COOKIE['code']==
 				<li>
 					<h1>Collections</h1>
 				</li>
-
 				<?php foreach($jenisProduk as $jenis): ?>
-				<form action="index.php" method="post" id="theForm<?= $jenis['jenis_produk'];?>">
-					<input type="hidden" name="type" value="<?=$jenis['jenis_produk'];?>">
-					<li><a style="cursor:pointer;"
-							onclick=" document.getElementById('theForm<?= $jenis['jenis_produk'];?>').submit();"><?=$jenis['jenis_produk'];?></a>
-					</li>
-				</form>
+				<li><a href="index.php?type=<?= $jenis['jenis_produk'];?>"><?= $jenis['jenis_produk']; ?></a></li>
 				<?php endforeach; ?>
-				<form action="index.php#shop" method="post" id='allItems'></form>
-				<li><a style="cursor:pointer;" onclick="document.getElementById('allItems').submit();"> All Items</a></li>
+				<li><a href="index.php#shop">All Items</a></li>
 			</ul>
 		</li>
 
 		<li>
 			<a href="contact.php" id="nav-contact">Contact</a>
 		</li>
-		<li>
 
-			<?php if(isset($_SESSION['level'])): ?>
-			<?php if($_SESSION['level']=='admin'): ?>
+		<li>
+			<a id="nav-contact">Location</a>
+		</li>
+
+		<?php if(isset($_SESSION['level'])): ?>
+		<?php if($_SESSION['level']=='admin'): ?>
 		<li>
 			<a href="admin/">Dashboard</a>
 		</li>
-		<li>
-			<?php endif; ?>
-			<?php endif; ?>
+		<?php endif; ?>
+		<?php endif; ?>
 
 	</ul>
-
-	<a href="index.php" id="logo">
-		<h1>GoturthinQs<span>.</span></h1>
-	</a>
+	<ul id="logo">
+		<a href="index.php">
+			<img src="assets/icon/logo.png" width="50%">
+		</a>
+	</ul>
 
 	<ul class="right">
 		<li>
-			<form action="index.php" method="post">
+			<form action="index.php" method="post" id="form-search">
 				<input type="search" name="search" id="search" autocomplete="off"
 					value="<?php if(isset($_POST['search'])){echo $search;}?>">
 				<label class="fas fa-search" for="search"></label>
@@ -72,26 +86,30 @@ if(isset($_COOKIE['shopping_cart'])&&isset($_COOKIE['code'])&&$_COOKIE['code']==
 			</a>
 		</li>
 
-		<?php if(isset($_SESSION['level'])): ?>
-		<?php if($_SESSION['level']=='user'||$_SESSION['level']=='admin'): ?>
 		<li id="notif-wish">
 			<a href="wishlist.php"><i class="fas fa-heart" id="nav-wish"></i>
-				<?php if(mysqli_fetch_assoc($wish)): ?>
+				<?php if(isset($_SESSION['level'])&&mysqli_fetch_assoc($wish)): ?>
 				<span class="notif notif-wish"><?= mysqli_num_rows($wish); ?></span>
 				<?php endif; ?>
 			</a>
 		</li>
 
+		<?php if(isset($_SESSION['level'])): ?>
+		<?php if($_SESSION['level']=='user'||$_SESSION['level']=='admin'): ?>
 
 		<li id="profile">
 			<a>
 				<img id="nav-profile" src="assets/profile/<?=$profile['foto']?>" alt="<?=$profile['username']?>"
-					title="<?=$profile['username']?>"
-					style="width:35px; height:35px; object-fit:cover;border-radius:50%;border:2px solid #d6d6d6;">
+					title="<?=$profile['username']?>" style="width:30px; height:30px; object-fit:cover;border-radius:50%;">
 			</a>
 			<ul class="profile nav-dropdown">
 				<li><a href="#!">Profile</a></li>
-				<li><a href="logout.php">Logout</a></li>
+				<li>
+					<form action="" method="post" style="display:inline-block;">
+						<input type='hidden' hidden name='logout'>
+						<a onclick="$(this).closest('form').submit();">Logout</a>
+					</form>
+				</li>
 			</ul>
 		</li>
 		<?php endif; ?>
@@ -99,7 +117,7 @@ if(isset($_COOKIE['shopping_cart'])&&isset($_COOKIE['code'])&&$_COOKIE['code']==
 
 		<?php if(!isset($_SESSION['level'])): ?>
 		<li id="login">
-			<a href="login.php">Login</a>
+			<a onclick="login()">login</a>
 		</li>
 		<?php endif; ?>
 	</ul>

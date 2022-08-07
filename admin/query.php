@@ -5,7 +5,7 @@
 <?php
 function koneksi()
 {
-  $conn = mysqli_connect('localhost', 'root', '', 'goturthings') or die('KONEKSI GAGAL!!');
+  $conn = mysqli_connect('localhost', 'root', '', 'trifthinqs') or die('KONEKSI GAGAL!!');
 
     return $conn;
 }

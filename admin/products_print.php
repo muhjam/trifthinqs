@@ -4,7 +4,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 // koneksi database
 require 'query.php';
-$goturthings=query("SELECT * FROM produk ORDER BY id DESC");
+$products=query("SELECT * FROM produk ORDER BY id DESC");
 
 ob_clean();
 
@@ -40,8 +40,8 @@ $html='<!DOCTYPE html>
 </head>
 <body>
 
-			<h1 style="text-align: center;font-family: "Libre Bodoni", sans-serif;color: #151e3d;">GOTURTHINQS<span style=" color: red;font-size: 50px;">.</span></h1>
-						<i style="text-align: center;font-family: "Libre Bodoni", sans-serif;color: #151e3d;">Products of GoturthinQs<span style=" color: red;font-size: 50px;">.</span></i>
+			<h1 style="text-align: center;font-family: "Libre Bodoni", sans-serif;color: #151e3d;">TrifthinQs Store<span style=" color: red;font-size: 50px;">.</span></h1>
+						<i style="text-align: center;font-family: "Libre Bodoni", sans-serif;color: #151e3d;">Products of TrifthinQs Store<span style=" color: red;font-size: 50px;">.</span></i>
 			
 			<div class="container" style="font-family:sans-serif;">
 
@@ -61,17 +61,17 @@ $html='<!DOCTYPE html>
 			';
 
 				$i=1;
-foreach($goturthings as $goturthing){
+foreach($products as $product){
 	$html.='<tbody>
 	<tr>
 	<td>'.$i++.'</td>
-	<td><img src="../assets/img/'.$goturthing["gambar"].'" style="width:100px; height:100px; object-fit:cover"/></td>
-	<td>'.$goturthing["kode_produk"].'</td>
-	<td>'.$goturthing["nama_produk"].'</td>
-	<td>'.$goturthing["jenis_produk"].'</td>
-	<td>'.$goturthing["ukuran"].'</td>
-	<td>'.rupiah($goturthing["harga"]).'</td>
-	<td>'.$goturthing["keterangan"].'</td>
+	<td><img src="../assets/img/'.$product["gambar"].'" style="width:100px; height:100px; object-fit:cover"/></td>
+	<td>'.$product["kode_produk"].'</td>
+	<td>'.$product["nama_produk"].'</td>
+	<td>'.$product["jenis_produk"].'</td>
+	<td>'.$product["ukuran"].'</td>
+	<td>'.rupiah($product["harga"]).'</td>
+	<td>'.$product["keterangan"].'</td>
 	</tr>
 
 </tbody>

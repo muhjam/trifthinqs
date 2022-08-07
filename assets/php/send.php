@@ -16,13 +16,13 @@ $message=$_POST['message'];
     $mail->Host = "smtp.gmail.com";
     $mail->Port = 465; // or 587
     $mail->IsHTML(true);
-    $mail->Username = "GoturthinQs@gmail.com";
-    $mail->Password = "mvqdrwuvztuqvhex";
+    $mail->Username = "trifthinqs@gmail.com";
+    $mail->Password = "payxcuknujnvegld";
     $mail->SetFrom($email);
     $mail->Subject = "From: $username";
     $mail->Body = "You have received a new message from your website contact form.<br><br> <strong>name</strong>: $username <br> <strong>email</strong>: $email <br><br> <strong>Message</strong>: $message";
 		
-    $mail->AddAddress("GoturthinQs@gmail.com");
+    $mail->AddAddress("trifthinqs@gmail.com");
 
      if(!$mail->Send()) {
         echo "Mailer Error: " . $mail->ErrorInfo;

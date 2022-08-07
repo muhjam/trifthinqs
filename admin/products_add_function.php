@@ -17,15 +17,15 @@ exit;
 } 
 
 
-if(!isset($_POST['kode_produk'])){
-    	header("location:products.php");
-exit;
-}
+// if(!isset($_POST['kode_produk'])||!isset($_POST['nama_produk'])||!isset($_POST['jenis_produk'])||!isset($_POST['ukuran'])||!isset($_POST['harga'])||!isset($_POST['warna'])||!isset($_POST['gambar'])||!isset($_POST['keterangan'])){
+//     	header("location:products.php");
+// return false;
+// }
 
 
 function koneksi()
 {
-  $conn = mysqli_connect('localhost', 'root', '', 'goturthings') or die('KONEKSI GAGAL!!');
+  $conn = mysqli_connect('localhost', 'root', '', 'trifthinqs') or die('KONEKSI GAGAL!!');
 
     return $conn;
 }
@@ -34,21 +34,17 @@ function koneksi()
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+	<head>
 
-	<title>GoturthinQs.</title>
+		<title>TrifthinQs.</title>
 
-</head>
+	</head>
 
-<body>
-	<!-- Sweet Alert -->
-	<script src='../assets/js/sweetalert2.all.min.js'></script>
+	<body>
+		<!-- Sweet Alert -->
+		<script src='../assets/js/sweetalert2.all.min.js'></script>
 
-	<?php
-
-
-
-
+		<?php
 
 
 // TAMBAH
@@ -144,14 +140,12 @@ return false;
     return $newfilename;
 }
 
-
-
 if (tambah($_POST) > 0) {
 		    echo "
         <script>
 			 Swal.fire({
   icon: 'success',
-  title: 'Product GoturthinQs.!',
+  title: 'Product TrifthinQs Store!',
   text: 'Successfully Added!'
 }).then(function(){
 document.location.href='products.php';
@@ -164,6 +158,6 @@ return false;
 
 ?>
 
-</body>
+	</body>
 
 </html>

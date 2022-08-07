@@ -1,13 +1,15 @@
 		<?php 
-		
-		require '../php/functions.php';
-		
-	$id_u=$_GET['id_u'];
+session_start();
+require '../php/functions.php';
+if(isset($_SESSION['level']))
+{
+$level=$_SESSION['level'];
+$username=$_SESSION['username'];
+$email=$_SESSION['email'];
+$id_u=$_SESSION['id'];
+}
 	$wish=mysqli_query(koneksi(),"SELECT * FROM wish WHERE id_u='$id_u'");
 
-	
-		
-		
 		?>
 
 		<style>

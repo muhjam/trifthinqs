@@ -9,7 +9,7 @@ require 'query.php';
 
 <head>
 
-	<title>GoturthinQs.</title>
+	<title>TrifthinQs.</title>
 
 </head>
 
@@ -26,7 +26,7 @@ if (healLevel($id) > 0) {
         <script>
 			 Swal.fire({
   icon: 'success',
-  title: 'User GoturthinQs.!',
+  title: 'User TrifthinQs Store!',
   text: 'Successfully to heal user!'
 }).then(function(){
 document.location.href='users.php';
@@ -41,7 +41,7 @@ echo "
         	<script>
 	Swal.fire({
 		icon: 'error',
-		title: 'User GoturthinQs.!',
+		title: 'User TrifthinQs Store!',
 		text: 'Failed heal user!'
 	}).then(function() {
 		document.location.href = 'users.php';

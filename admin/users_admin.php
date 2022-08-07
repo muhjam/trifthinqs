@@ -7,17 +7,17 @@ require 'query.php';
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+	<head>
 
-	<title>GoturthinQs.</title>
+		<title>TrifthinQs.</title>
 
-</head>
+	</head>
 
-<body>
-	<!-- Sweet Alert -->
-	<script src='../assets/js/sweetalert2.all.min.js'></script>
+	<body>
+		<!-- Sweet Alert -->
+		<script src='../assets/js/sweetalert2.all.min.js'></script>
 
-	<?php
+		<?php
 
 
 $id = $_POST["id"];
@@ -26,7 +26,7 @@ if (adminLevel($id) > 0) {
         <script>
 			 Swal.fire({
   icon: 'success',
-  title: 'User GoturthinQs.!',
+  title: 'User TrifthinQs Store!',
   text: 'User successfully become admin!'
 }).then(function(){
 document.location.href='users.php';
@@ -42,7 +42,7 @@ return false;
         	<script>
 	Swal.fire({
 		icon: 'error',
-		title: 'User GoturthinQs.!',
+		title: 'User TrifthinQs Store!',
 		text: 'Failed user to be admin!'
 	}).then(function() {
 		document.location.href = 'users.php';
@@ -55,6 +55,6 @@ return false;
 
 ?>
 
-</body>
+	</body>
 
 </html>

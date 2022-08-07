@@ -1,9 +1,9 @@
    <?php include 'profile.php'; ?>
 
-   <a href="https://www.instagram.com/goturthings/" target="_blank" class="brand-link">
+   <a href="https://www.instagram.com/trifthinqs/" target="_blank" class="brand-link">
    	<img src="../assets/icon/icon.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
    		style="opacity: .8">
-   	<span class="brand-text font-weight-light">GoturtginQs<span style="color:red">.</span></span>
+   	<span class="brand-text font-weight-light">TrifthinQs<span style="color:red">.</span></span>
    </a>
 
    <!-- Sidebar -->

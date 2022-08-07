@@ -1,177 +1,184 @@
 /* awal slide */
 
-
 /* Slideshow container */
 
 .slideshow-container {
-    position: relative;
+  position: relative;
 }
-
 
 /* Hide the images by default */
 
 .mySlides {
-    display: none;
+  display: none;
 }
 
 .slideshow-container img {
-    width: 100%;
-    margin-top: 35px;
-    object-fit: cover;
+  width: 100%;
+  margin-top: 35px;
+  object-fit: cover;
 }
-
 
 /* Next & previous buttons */
 
 .prev,
 .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: 50px;
-    height: 50px;
-    margin: 0px 10px;
-    color: #ffff;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    border-radius: 100%;
-    user-select: none;
-    text-align: center;
-    line-height: 50px;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 0px 10px;
+  color: #ffff;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 100%;
+  user-select: none;
+  text-align: center;
+  line-height: 50px;
 }
-
 
 /* Position the "next button" to the right */
 
 .next {
-    right: 0;
+  right: 0;
 }
-
 
 /* On hover, add a black background color with a little bit see-through */
 
 .prev:hover,
 .next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.8);
 }
-
 
 /* Caption text */
 
 .text {
-    color: #f2f2f2;
-    font-size: 15px;
-    padding: 8px 12px;
-    position: absolute;
-    bottom: 8px;
-    width: 100%;
-    text-align: center;
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
 }
-
 
 /* Number text (1/3 etc) */
 
 .numbertext {
-    color: #f2f2f2;
-    font-size: 12px;
-    padding: 8px 12px;
-    position: absolute;
-    top: 0;
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
 }
-
 
 /* Fading animation */
 
 .fade {
-    animation-name: fade;
-    animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
 }
 
 @keyframes fade {
-    from {
-        opacity: 0.4;
-    }
-    to {
-        opacity: 1;
-    }
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-
 /* akhir slide */
-
 
 /* awal produk */
 
 .title-index {
-    margin: 20px 0;
-    text-align: center;
+  margin: 20px 0;
+  text-align: center;
 }
 
 .title-index span {
-    border-top: 1px solid #555;
-    border-bottom: 1px solid #555;
-    padding: 3px 0px;
-    letter-spacing: 5px;
-    font-size: 18px;
-    color: #555;
-    text-transform: uppercase;
+  border-top: 1px solid #555;
+  border-bottom: 1px solid #555;
+  padding: 3px 0px;
+  letter-spacing: 5px;
+  font-size: 18px;
+  color: #555;
+  text-transform: uppercase;
 }
 
 .produk {
-    margin-bottom: 50px;
-    display: flex;
-    flex-wrap: wrap;
+  margin-bottom: 50px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .produk .news-items {
-    display: none;
+  display: none;
 }
 
 .produk a {
-    width: 25%;
-    text-align: center;
-    padding: 20px;
-    /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.2); */
+  width: 25%;
+  text-align: center;
+  padding: 20px;
+  /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.2); */
 }
 
 .produk a:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 .produk a:hover .border img {
-    transform: scale(1.4);
+  transform: scale(1.4);
 }
 
 .produk a .border {
-    width: 100%;
-    overflow: hidden;
-    border-radius: 5px;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 5px;
 }
 
 .produk a .border img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    transition: 1s;
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  transition: 1s;
+}
+
+.produk a .border #label {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.produk a .border #label img {
+  width: 50px;
+  height: auto !important;
+  transition: none !important;
+  transform: none !important;
+}
+
+.produk a .border #label #sold {
+  width: 100%;
 }
 
 .produk h4 {
-    font-size: 12px;
-    font-weight: 600;
-    font-family: "Montserrat", sans-serif;
-    margin-top: 10px;
-    color: black;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+  margin-top: 10px;
+  color: #161b22;
 }
 
 .produk p {
-    margin-top: 5px;
-    font-size: 10px;
-    font-weight: 500;
-    font-family: "Montserrat", sans-serif;
-    color: black;
+  margin-top: 5px;
+  font-size: 10px;
+  font-weight: 500;
+  font-family: "Montserrat", sans-serif;
+  color: #161b22;
 }
-
 
 /* akhir produk *
 
@@ -179,25 +186,22 @@
 /* awal loadmore */
 
 #loadMore {
-    text-align: center;
-    margin: 25px 0;
+  text-align: center;
+  margin: 25px 0 100px 0;
 }
 
 #loadMore button {
-    color: black;
-    cursor: pointer;
+  color: #161b22;
+  cursor: pointer;
 }
-
 
 /* akhir loadmore */
 
-
 /* awal map */
 
-#map {
-    margin-top: 100px;
-    margin-bottom: 0;
-}
-
+/* #map {
+  margin-top: 100px;
+  margin-bottom: 0;
+} */
 
 /* akhir map */

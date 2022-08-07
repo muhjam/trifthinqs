@@ -26,7 +26,7 @@ $id = $_POST["id"];
 
 function koneksi()
 {
-  $conn = mysqli_connect('localhost', 'root', '', 'goturthings') or die('KONEKSI GAGAL!!');
+  $conn = mysqli_connect('localhost', 'root', '', 'trifthinqs') or die('KONEKSI GAGAL!!');
 
     return $conn;
 }
@@ -51,7 +51,7 @@ function query($query) {
 
 <head>
 
-	<title>GoturthinQs.</title>
+	<title>TrifthinQs.</title>
 
 </head>
 
@@ -101,7 +101,7 @@ if (delete($id) > 0) {
         <script>
 			 Swal.fire({
   icon: 'success',
-  title: 'Product GoturthinQs.!',
+  title: 'Product TrifthinQs Store!',
   text: 'Successfully deleted!'
 }).then(function(){
 document.location.href='products.php';
@@ -113,7 +113,7 @@ return false;
         <script>
 			 Swal.fire({
   icon: 'error',
-  title: 'Product GoturthinQs.!',
+  title: 'Product TrifthinQs Store!',
   text: 'Failed to delete!'
 }).then(function(){
 document.location.href='products.php';

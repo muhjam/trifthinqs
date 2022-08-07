@@ -5,7 +5,7 @@
 <?php
 function koneksi()
 {
-  $conn = mysqli_connect('localhost', 'root', '', 'goturthings') or die('KONEKSI GAGAL!!');
+  $conn = mysqli_connect('localhost', 'root', '', 'trifthinqs') or die('KONEKSI GAGAL!!');
 
     return $conn;
 }
@@ -242,46 +242,38 @@ $query = "SELECT * FROM produk
 //  Function cari
 function type($keyword){
 
-$keyword=$_POST['type'];
+$keyword=$_GET['type'];
 
    $query = "SELECT * FROM produk
               WHERE jenis_produk = '$keyword'
             ";
 
               return query($query);
-
-    
 }
 
-// function kode_aktifasi
+// function kode_aktivasi
 function gen_uid($l=6){
     return substr(uniqid(), 7, $l);
 } 
 
 
 // function aktifasi
-function aktifasi($data){
+function activation($data){
    $conn=koneksi();
-$kode_aktifasi=$data["kode_aktifasi"];
-
-
-        $query = "UPDATE `users` SET `status`='on' WHERE `kode_aktifasi`='$kode_aktifasi';
+$kode_aktivasi=$data["activation_code"];
+        $query = "UPDATE `users` SET `status`='on' WHERE `kode_aktivasi`='$kode_aktivasi';
                 ";
     mysqli_query($conn, $query);
-
-
     return mysqli_affected_rows($conn);
-
-    
 } 
 
 // function mengubah kode aktifasi
 function updateAktifasi($data){
    $conn=koneksi();
 $email=htmlspecialchars($data["email"]);
-$kode_aktifasi=$data["kode_aktifasi"];
+$kode_aktivasi=$data["kode_aktivasi"];
     
-$query = "UPDATE `users` SET `kode_aktifasi`='$kode_aktifasi'WHERE `email`='$email'";
+$query = "UPDATE `users` SET `kode_aktivasi`='$kode_aktivasi'WHERE `email`='$email'";
 mysqli_query($conn, $query);
 
  return mysqli_affected_rows($conn);
@@ -294,10 +286,10 @@ function updateEmail($data){
     $email=htmlspecialchars($data["email"]);
     $password= mysqli_real_escape_string($conn, $data["password"]);
     $password2= mysqli_real_escape_string($conn,$data["password2"]);
-    $kode_aktifasi=$data["kode_aktifasi"];
+    $kode_aktivasi=$data["kode_aktivasi"];
 
 
-        $query = "UPDATE `users` SET `status`='on' WHERE `kode_aktifasi`='$kode_aktifasi';
+        $query = "UPDATE `users` SET `status`='on' WHERE `kode_aktivasi`='$kode_aktivasi';
                 ";
     mysqli_query($conn, $query);
 
@@ -311,35 +303,48 @@ function updateEmail($data){
 function signup($data){
    $conn=koneksi();
 
-    $username= htmlspecialchars(stripslashes($data["username"]));
-    $email=htmlspecialchars($data["email"]);
-    $password= mysqli_real_escape_string($conn, $data["password"]);
-    $password2= mysqli_real_escape_string($conn,$data["password2"]);
-    $kode_aktifasi=$data["kode_aktifasi"];
-
-
-    // cek konsfirmasi password
-    if($password !== $password2){
-        echo "
-        <script>
-        alert('konfirmasi password tidak sesuai!');
-        document.location.href='signup.php'
-        </script>
-        ";
-        
-        return false;
-    }
-
+    $username= htmlspecialchars(stripslashes($data["signup_username"]));
+    $email=htmlspecialchars($data["signup_email"]);
+    $password= mysqli_real_escape_string($conn, $data["signup_password1"]);
+    $password2= mysqli_real_escape_string($conn,$data["signup_password2"]);
+    $kode_aktivasi=$data["activation_code"];
 
     // enkriosi password
 $password=password_hash($password, PASSWORD_DEFAULT);   
 
-    // tambahkan user baru ke database
-mysqli_query($conn, "INSERT INTO `users`(`username`,`email`, `password`,  `level`, `kode_aktifasi`) VALUES ('$username','$email','$password','user','$kode_aktifasi')");
+// tambahkan user baru ke database
+mysqli_query($conn, "INSERT INTO `users`(`username`,`email`, `password`,  `level`, `kode_aktivasi`) VALUES ('$username','$email','$password','user','$kode_aktivasi')");
 
 return mysqli_affected_rows($conn);
 
 }
+// resend
+function resend($data){
+    $conn=koneksi();
+ 
+     $email=htmlspecialchars($data["signup_email"]);
+     $kode_aktivasi=$data["activation_code"];
+
+ 
+ // tambahkan user baru ke database
+ mysqli_query($conn, "UPDATE users SET kode_aktivasi='$kode_aktivasi' WHERE email='$email'");
+ 
+ return mysqli_affected_rows($conn);
+ 
+ }
+
+ // resend
+function resetCode($data){
+    $conn=koneksi();
+ 
+     $email=htmlspecialchars($data["signup_email"]);
+     $kode_aktivasi=gen_uid();
+ // tambahkan user baru ke database
+ mysqli_query($conn, "UPDATE users SET kode_aktivasi='$kode_aktivasi' WHERE email='$email'");
+ 
+ return mysqli_affected_rows($conn);
+ 
+ }
 
 
 
@@ -353,8 +358,6 @@ function changepw($data){
     $email=htmlspecialchars($data["email"]);
     $password= mysqli_real_escape_string($conn, $data["password"]);
     $password2= mysqli_real_escape_string($conn,$data["password2"]);
-
-
 
     // enkriosi password
 $password=password_hash($password, PASSWORD_DEFAULT);   
@@ -371,22 +374,13 @@ return mysqli_affected_rows($conn);
 }
 
 
-
-
 //rupiah
 function rupiah($harga){
 	global $conn;
 
 	$hasil_rupiah = "Rp. " . number_format($harga,2,',','.');
 	return $hasil_rupiah;
- 
-
-
-
-
 }
-
-
 
 //rupiah
 function idr($harga){
@@ -394,9 +388,7 @@ function idr($harga){
 
 	$hasil_rupiah = "IDR " . number_format($harga,0,',','.');
 	return $hasil_rupiah;
- 
 }
-
 
 // profile
 function editFoto($data){
@@ -416,8 +408,6 @@ if($_FILES['gambar']['error']===4){
         return false;
     }    
 
-
-
 }else{
       $gambar=uploadProfile();
 
@@ -429,7 +419,6 @@ if($_FILES['gambar']['error']===4){
         // hapus gambar lama
     unlink('../profile/' . $gambarLama);
 }
-
 
 $query = "UPDATE `users` SET `foto`='$gambar' WHERE `id`='$id'; ";
 

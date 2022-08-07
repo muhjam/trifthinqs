@@ -25,7 +25,7 @@ if(!isset($_POST['id'])){
 
 function koneksi()
 {
-  $conn = mysqli_connect('localhost', 'root', '', 'goturthings') or die('KONEKSI GAGAL!!');
+  $conn = mysqli_connect('localhost', 'root', '', 'trifthinqs') or die('KONEKSI GAGAL!!');
 
     return $conn;
 }
@@ -34,17 +34,17 @@ function koneksi()
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+	<head>
 
-	<title>GoturthinQs.</title>
+		<title>TrifthinQs.</title>
 
-</head>
+	</head>
 
-<body>
-	<!-- Sweet Alert -->
-	<script src='../assets/js/sweetalert2.all.min.js'></script>
+	<body>
+		<!-- Sweet Alert -->
+		<script src='../assets/js/sweetalert2.all.min.js'></script>
 
-	<?php
+		<?php
 
 
 
@@ -80,19 +80,12 @@ if($_FILES['gambar']['error']===4){
         // hapus gambar lama
     unlink('../assets/img/' . $gambarLama);
 }
-
-
-
     $query = "UPDATE `produk` SET `id`='$id',`jenis_produk`='$jenis_produk',`kode_produk`='$kodeProduk',`nama_produk`='$namaProduk',`ukuran`='$ukuran',`harga`='$hargaBaru',`keterangan`='$keteranganBaru',`gambar`='$gambar',
      `warna`='$warna'
     WHERE `id`='$id';
                 ";
     mysqli_query($conn, $query);
-
-
     return mysqli_affected_rows($conn);
-
-
 }
 
 // Function Upload
@@ -155,7 +148,7 @@ if (ubah($_POST) > 0) {
         <script>
 			 Swal.fire({
   icon: 'success',
-  title: 'Product GoturthinQs.!',
+  title: 'Product TrifthinQs Store!',
   text: 'Successfully changed!'
 }).then(function(){
 document.location.href='products.php';
@@ -169,7 +162,7 @@ return false;
         <script>
 			 Swal.fire({
   icon: 'warning',
-  title: 'Product GoturthinQs.!',
+  title: 'Product TrifthinQs Store!',
   text: 'Nothing has changed!'
 }).then(function(){
 document.location.href='products_edit.php';
@@ -183,6 +176,6 @@ return false;
 
 ?>
 
-</body>
+	</body>
 
 </html>

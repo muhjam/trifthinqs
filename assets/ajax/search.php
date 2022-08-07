@@ -11,23 +11,14 @@ $query="SELECT * FROM produk
             harga LIKE '%$keyword%' OR
             kode_produk LIKE '%$keyword%' OR
             keterangan LIKE '%$keyword%'
-            ORDER BY id DESC
+            ORDER BY produk.status ASC,id DESC
 					";
-
-
-
-
-$goturthings= query($query);
-
-
-
+$products= query($query);
 // mengaharhkan ke normal page
 // if($keyword===''){
 // header("Refresh:0; url=index.php");
 // exit;
 // }
-
-
 ?>
 
 <!-- awal produk -->
@@ -39,7 +30,7 @@ $goturthings= query($query);
 
 
 
-<?php if(empty($goturthings)): ?>
+<?php if(empty($products)): ?>
 <div style="padding:20px 0 200px 0;text-align:center;">
 	<h1
 		style="color:#a9a9a9;font-family: 'Open Sans', sans-serif;margin-top:120px;text-align:center;text-transform:uppercase;font-weight:400;">
@@ -49,17 +40,20 @@ $goturthings= query($query);
 
 
 <div class="produk" data-aos="flip-left" style="margin-bottom:100px;">
-	<?php foreach($goturthings as $goturthing): ?>
-	<a href="product.php?number=<?= $goturthing['id'];?>" class="news-item">
-		<input type="hidden" value="<?= $goturthing['id'];?>" name="product">
+	<?php foreach($products as $product): ?>
+	<a href="product.php?number=<?= $product['id'];?>" class="news-item">
+		<input type="hidden" value="<?= $product['id'];?>" name="product">
 		<div class="border">
-			<img src="assets/img/<?= $goturthing['gambar']?>">
+			<img src="assets/img/<?= $product['gambar']?>">
+			<div id="label">
+				<?php if($product['status']!=='sell'): ?>
+				<img src="assets/icon/soldout.png" id="sold">
+				<?php endif; ?>
+			</div>
 		</div>
-		<h4><?= $goturthing['nama_produk']; ?></h4>
-		<p><?= idr($goturthing["harga"]); ?></p>
+		<h4><?= $product['nama_produk']; ?></h4>
+		<p><?= idr($product["harga"]); ?></p>
 	</a>
 	<?php endforeach; ?>
 </div>
-
-
 <!-- akhir produk -->

@@ -2,6 +2,13 @@
 // memeriksa sudah login atau belum
 session_start();
 require 'assets/php/functions.php';
+if(!isset($_SESSION['aktifasi'])){
+	header("location:logout.php");
+	exit;
+}
+
+// membuat session forgot
+$_SESSION['forgot']="forgot";
 
 // cek apakah sudah login
 if(isset($_SESSION["level"])){
@@ -12,30 +19,20 @@ exit;
 }else if($_SESSION['level']=="user"){
 	header("location:index.php");
 exit;
+}else if(!isset($_SESSION['akun'])){
+	header("location:lougout.php");
 }
-
-
-}
-
-if(isset($_SESSION['akunbaru'])){
-$email=$_SESSION['akunbaru'];
-// koneksi ke database
-$conn=koneksi();
-mysqli_query($conn, "DELETE FROM users WHERE `users`.`email` = '$email'");
-
-$_SESSION=[];
-session_unset();
 
 }
 
-
-$_SESSION=[];
-session_unset();
-
-
-
+if(!isset($_SESSION['masuk'])=="masuk"){
+	header("location:logout.php");
+	exit;
+}
 
 
+
+$email=$_SESSION['akun'];
 
 
 
@@ -50,7 +47,7 @@ session_unset();
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="description" content="Tempat trifthingnya Bandung" />
 	<meta name="keywords"
-		content="GoturthinQs, toko online, trifthing, jual barang bekas fashion, toko online bandung, toko online di bandung, goturthings, got your things, GBI, trifthing bandung" />
+		content="TrifthinQs Store, toko online, trifthing, jual barang bekas fashion, toko online bandung, toko online di bandung, trifthinqs, got your things, GBI, trifthing bandung" />
 	<meta name="author" content="Muhamad Jamaludin" />
 
 
@@ -72,8 +69,7 @@ session_unset();
 	<link
 		href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@500&family=Montserrat:wght@300;400;500;600&family=Open+Sans:wght@600&display=swap"
 		rel="stylesheet">
-	<title>GoturthinQs.</title>
-
+	<title>TrifthinQs.</title>
 
 	<!-- link my css -->
 	<link rel="stylesheet" href="assets/css/login.css">
@@ -86,61 +82,80 @@ session_unset();
 <body>
 
 
+	<!-- Sweet Alert -->
+	<script src='assets/js/sweetalert2.all.min.js'></script>
+
+	<?php 
+
+
+if(isset($_POST["change"])){
+$password=$_POST['password'];
+$password2=$_POST['password2'];
+
+ // cek konsfirmasi password
+if($password !== $password2){
+        echo "
+        <script>
+			 Swal.fire({
+  icon: 'error',
+  title: 'Wrong!',
+  text: 'Confirm password is wrong !'
+}).then(function(){
+document.location.href='change_password.php';});
+        </script>";
+				return false;
+
+    }elseif($password === $password2){
+		
+	if(changepw($_POST)>0){
+					     echo "
+        <script>
+       Swal.fire({
+  icon: 'success',
+  title: 'Success!',
+  text: 'your account was created successfully!',
+}).then(function(){
+document.location.href='login.php';});
+        </script>";
+					return false;
+    } else {
+        echo mysqli_error($conn);
+    }
+
+		}
+  }
+?>
+
+
+
 
 	<div class="container-fluid">
 
 		<div class="logo">
-			<h1>GoturSiQnUp<span>.</span></h1>
-			<h6 class="subtitle">Buat akun keren kalian disini</h6>
+			<h1>Goturpassword<span>.</span></h1>
+			<h6 class="subtitle">Buat password baru disini</h6>
 		</div>
 
 		<div class="konten">
-			<form action="assets/php/functions_create_email.php" method="post" class="px-4 py-3" name="formInput">
+			<form action="" method="post" class="px-4 py-3">
+				<input type="hidden" name="email" id="email" value="<?= $email;?>" required>
+
 				<div class="mb-3">
 					<?php if (isset($error)) : ?>
 					<p>Konfirmasi password tidak sesuai</p>
 					<?php endif; ?>
-					<?php $kode_aktifasi=gen_uid(); ?>
-					<input type="hidden" hidden name="kode_aktifasi" class="form-control" required maxlength="6"
-						value="<?= $kode_aktifasi;?>">
 
-					<div id="colName">
-						<label for="username" class="form-label name">Name</label>
-					</div>
-					<input type="text" name="username" class="form-control" id="username" placeholder="Input your full name"
-						required maxlength="50" autocomplete="off" pattern="[a-zA-Z\s]+" title="only characters and spaces">
-				</div>
-
-
-				<div class="mb-3">
-
-					<div id="colEmail">
-						<label for="email" class="form-label email">Email</label>
-					</div>
-					<input type="email" name="email" class="form-control" id="email" placeholder="exp goturthinqs123@gmail.com"
-						required autocomplete="off" title="Please input your valid email">
-				</div>
-
-
-				<div class="mb-3">
-					<div id="colPassword1" style="display:inline-block;">
-						<label for="exampleDropdownFormPassword1" class="form-label password1" autocomplete="off">Password</label>
-					</div>
+					<label for="exampleDropdownFormPassword1" class="form-label">New Password</label>
 					<input type="checkbox" onclick="showPassword()" class="checkbox showpassword form-check-input">
 					<input type="password" name="password" class="form-control" id="exampleDropdownFormPassword1"
-						placeholder="Create password" required minlength="8" autocomplete="off">
+						placeholder="Create new password" required minlength="8">
 				</div>
-
-				<div class="mb-3 d-none" id="confirmPassword">
-					<div id="colPassword2" style="display:inline-block;">
-						<label for="exampleDropdownFormPassword2" class="form-label">Confirm Password</label>
-					</div>
+				<div class="mb-3">
+					<label for="exampleDropdownFormPassword2" class="form-label">Confirm Password</label>
 					<input type="password" name="password2" class="form-control" id="exampleDropdownFormPassword2"
-						placeholder="Confirmation Password" required minlength="8" autocomplete="off">
+						placeholder="Confirm new password" required minlength="8">
 				</div>
-
-				<button type="submit" id="signup" class="btn btn-outline-danger" name="signup">Sign
-					up</button>
+				<button type="submit" class="btn btn-outline-danger " name="change">Change</button>
 
 			</form>
 			<div class="dropdown-divider"></div>
@@ -152,7 +167,7 @@ session_unset();
 
 
 	<!-- my javascript -->
-	<script src="assets/js/signupAjax.js"></script>
+	<script src="assets/js/login.js"></script>
 
 
 	<!-- Optional JavaScript; choose one of the two! -->
