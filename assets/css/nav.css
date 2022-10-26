@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   font-family: "Montserrat", sans-serif;
-  color: rgba(255, 255, 255, 0.842);
   box-sizing: border-box;
   font-weight: 400;
 }
@@ -12,7 +11,8 @@ html {
 }
 
 body {
-  background-color: #fafafa;
+  background-color: #ffff;
+  color: rgba(255, 255, 255, 0.842);
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
   display: flex;
@@ -29,6 +29,14 @@ body {
   display: none !important;
 }
 
+.registered {
+  color: green !important;
+}
+
+.not-registered {
+  color: red !important;
+}
+
 svg {
   color: #ffff;
 }
@@ -41,12 +49,29 @@ input[type="email"]::placeholder {
   text-transform: none;
 }
 
-#profile a:not(:only-child) {
+#profile-nav {
+  margin-left: 5px;
+}
+
+#profile-nav a:not(:only-child) {
   opacity: 0.95;
 }
 
-#profile a:not(:only-child):hover {
+#profile-nav a:not(:only-child):hover {
   opacity: 1;
+}
+
+a,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+button {
+  color: rgba(255, 255, 255, 0.842);
 }
 
 a {
@@ -89,6 +114,13 @@ nav #logo a img {
   width: 180px;
 }
 
+nav #profile-nav img#nav-profile {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 /* nav #logo h1 {
   font-family: "Libre Bodoni", serif;
   text-transform: uppercase;
@@ -106,14 +138,54 @@ nav ul li form input {
   border: none;
   border-bottom: 1px solid #ffff;
   outline: none;
-  padding-bottom: 5px;
   background-color: #161b22;
   width: 100px;
   transition: 0.3s;
+  position: relative;
+  font-size: 14px;
 }
 
 nav ul li form input:focus {
   width: 120px;
+}
+
+#livesearch {
+  background-color: black;
+  position: absolute;
+  width: 150px;
+  border: 1px solid #a5acb2;
+  display: none;
+  animation: fade 0.3s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#livesearch:hover {
+  display: block !important;
+}
+
+#livesearch a {
+  margin: 10px 5px;
+}
+
+#livesearch p {
+  margin: 0 5px;
+}
+
+#livesearch a.moreResult {
+  text-align: center;
+  border: 1px solid #a5acb2;
+}
+
+.search-item {
+  display: none;
 }
 
 nav ul {
@@ -139,6 +211,7 @@ nav ul li a .notif {
   width: 16px;
   height: 16px;
   text-align: center;
+  /* color: #ffff; */
 }
 
 nav ul li ul li a {
@@ -163,6 +236,8 @@ nav ul li ul li a:hover {
 
 nav ul li#shop-nav ul.shop li a {
   padding: 3px 0;
+  text-transform: uppercase;
+  font-size: 12px;
 }
 
 nav ul li#shop-nav a:not(:only-child):after {
@@ -177,12 +252,12 @@ nav ul li ul li h1 {
   text-transform: uppercase;
   color: #161b22;
   font-family: "Montserrat", sans-serif;
-  font-weight: 300 bold;
-  font-size: 12px;
+  font-weight: 500 bold;
+  font-size: 14px;
   margin-bottom: 5px;
 }
 
-/* nav ul li#profile a:not(:only-child)::after {
+/* nav ul li#profile-nav a:not(:only-child)::after {
   content: " ▾";
   position: absolute;
   bottom: 40%;
@@ -198,7 +273,6 @@ nav ul li ul li a {
 .nav-dropdown {
   position: absolute;
   z-index: 1;
-  border-radius: 5px;
   /* Guarantees that the dropdown will display on top of any content. */
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
   background-color: #ffff;
@@ -215,7 +289,7 @@ nav ul li:hover .nav-dropdown {
   display: block;
 }
 
-nav ul li#profile ul.profile.nav-dropdown {
+nav ul li#profile-nav ul.profile.nav-dropdown {
   margin-left: -50px;
   width: 100px;
 }
@@ -228,13 +302,21 @@ ul.right li#login a:hover {
   color: red;
 }
 
-/* nav ul li#profile {
+/* nav ul li#profile-nav {
   margin-left: 5px;
 } */
+nav ul li#profile-nav ul li a {
+  text-transform: uppercase;
+  padding: 8px 10px;
+}
 
-nav ul li#profile ul li:last-child a {
+nav ul li#profile-nav ul li:last-child a {
   color: red;
 }
+
+/* nav ul li#profile-nav ul li:last-child a:hover {
+  opacity: 0.6;
+} */
 
 /* akhir navbar */
 

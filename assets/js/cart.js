@@ -96,3 +96,15 @@ function close_alert(x) {
   const y = document.querySelector(x);
   y.classList.add("d-none");
 }
+
+var formVoucher = document.querySelector("form[name='form-voucher']");
+
+formVoucher.addEventListener("submit", function (e) {
+  var voucher = document.querySelector(
+    "form[name='form-voucher'] input[name='voucher']"
+  );
+  if (voucher.value.length != "10") {
+    e.preventDefault();
+    return;
+  }
+});

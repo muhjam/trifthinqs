@@ -1,6 +1,6 @@
 <?php 
 // session
-include "assets/section/session.php";
+include "assets/login/session.php";
 // product
 if(isset($_GET['number'])){
 $productSelected=$_GET['number'];
@@ -73,14 +73,10 @@ if(isset($_POST["removeCart"])){
 		<!-- akhir head -->
 		<!-- my css -->
 		<link rel="stylesheet" href="assets/css/product.css" />
+		<link rel="stylesheet" href="assets/css/zoomImg.css" />
 	</head>
 
 	<body>
-
-		<!-- awal login form -->
-		<?php include 'assets/login/login.php'; ?>
-		<!-- akhir login form -->
-
 		<!-- awal isi konten -->
 		<!-- awal navbar -->
 		<?php include 'assets/section/nav.php'; ?>
@@ -89,7 +85,7 @@ if(isset($_POST["removeCart"])){
 		<div class="title">
 			<h3>Product</h3>
 			<div class="sub-title">
-				<a href="index.php">home</a> / <a href="index.php#shop">shop</a> / <a href="#"
+				<a href="index.php?home">home</a> / <a href="index.php?shop">shop</a> / <a href="#"
 					id="point"><?= $product['jenis_produk'];?></a>
 			</div>
 		</div>
@@ -183,11 +179,8 @@ if(isset($_POST["removeCart"])){
 		<!-- jquery -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<script src="assets/js/product.js"></script>
-		<!-- navbar -->
-		<script src="assets/js/nav_shop.js"></script>
 		<!-- zoomimage -->
 		<script src="assets/js/zoomImg.js"></script>
-
 	</body>
 
 </html>

@@ -45,8 +45,6 @@ function koneksi()
 		<script src='../assets/js/sweetalert2.all.min.js'></script>
 
 		<?php
-
-
 // TAMBAH
 function tambah($data) {
    $conn=koneksi();

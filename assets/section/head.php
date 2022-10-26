@@ -11,7 +11,7 @@
 <link rel="icon" href="assets/icon/icon.png" />
 <title>TrifthinQs.</title>
 <!-- font awesome -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="assets/fontawesome/css/all.css">
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

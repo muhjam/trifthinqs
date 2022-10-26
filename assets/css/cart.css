@@ -29,10 +29,11 @@
   display: inline-block;
   height: 20px;
   border-radius: 3px;
-  background-color: #eaeaea;
+  background-color: #ffff;
 }
 #container .action button:hover {
   border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0.839);
 }
 #container .action form button:hover {
   background-color: #dddd;
@@ -136,9 +137,14 @@
   margin: 0 0 5px 0;
 }
 
-.container .summary span {
-  color: rgba(98, 98, 98, 0.867);
+.container .summary p:first-child span {
   margin: 0;
+  color: rgba(98, 98, 98, 0.867);
+  display: block;
+}
+.container .summary p:first-child span:last-child {
+  color: red !important;
+  opacity: 0.867;
 }
 
 .container .summary button {

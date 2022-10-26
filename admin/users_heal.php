@@ -7,17 +7,17 @@ require 'query.php';
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+	<head>
 
-	<title>TrifthinQs.</title>
+		<title>TrifthinQs.</title>
 
-</head>
+	</head>
 
-<body>
-	<!-- Sweet Alert -->
-	<script src='../assets/js/sweetalert2.all.min.js'></script>
+	<body>
+		<!-- Sweet Alert -->
+		<script src='../assets/js/sweetalert2.all.min.js'></script>
 
-	<?php
+		<?php
 
 
 $id = $_POST["id"];
@@ -54,6 +54,6 @@ return false;
 
 ?>
 
-</body>
+	</body>
 
 </html>

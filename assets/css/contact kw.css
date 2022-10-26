@@ -1,0 +1,31 @@
+#contact {
+  width: 88%;
+  padding: 0 15px;
+  border: 1px solid red;
+  margin: 0 auto;
+}
+
+#contact .section label input {
+  border: 1px solid #e6e6e6;
+  color: #555;
+  height: 40px;
+  padding: 10px;
+}
+
+#contact .section label textarea {
+  border: 1px solid #e6e6e6;
+}
+
+#contact .section label {
+  padding-left: 38px;
+  position: relative;
+}
+
+#contact .section label .icon-form {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#contact .section label .icon-form i {
+  position: relative;
+}

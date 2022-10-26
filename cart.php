@@ -1,6 +1,6 @@
 <?php 
 // session
-include "assets/section/session.php";
+include "assets/login/session.php";
 // cart
 if(isset($_POST["removeCart"])){
 	$cookie_data=stripcslashes($_COOKIE['shopping_cart']);
@@ -53,9 +53,7 @@ if(isset($_POST["undoCart"])){
 	</head>
 
 	<body>
-		<!-- awal login form -->
-		<?php include 'assets/login/login.php'; ?>
-		<!-- akhir login form -->
+
 		<!-- awal isi konten -->
 		<!-- awal navbar -->
 		<?php include 'assets/section/nav.php'; ?>
@@ -65,7 +63,7 @@ if(isset($_POST["undoCart"])){
 		<div class="title">
 			<h3>Shopping Cart</h3>
 			<div class="sub-title">
-				<a href="index.php">home</a> / <a href="index.php#shop">shop</a> /
+				<a href="index.php?home">home</a> / <a href="index.php?shop">shop</a> /
 				<a href="#" id="point">cart</a>
 			</div>
 		</div>
@@ -99,8 +97,8 @@ if(isset($_POST["undoCart"])){
 			<?php if(isset($_COOKIE['shopping_cart'])&&isset($_COOKIE['code'])&&$code_hash===hash('sha256', $_COOKIE['shopping_cart'])&&strlen($_COOKIE['shopping_cart'])>16): ?>
 			<div class="action">
 				<button type="button" onclick="clearCart()">CLEAR</button>
-				<form action="" method="post" class="voucher">
-					<input type="text" placeholder="Voucher Code" name="voucher" maxlength="10" autocomplete="off">
+				<form action="" method="post" class="voucher" name="form-voucher">
+					<input type="text" placeholder="Voucher Code" name="voucher" maxlength="10" autocomplete="off" required>
 					<button type="submit" name="submit">USE</button>
 				</form>
 			</div>
@@ -163,8 +161,11 @@ if(isset($_POST["undoCart"])){
 					</table>
 				</div>
 				<div class="summary">
-					<p>SUMMARY : </p>
-					<span>&bull; <?= count($cart_data) ; ?> Items</span>
+					<p>
+						SUMMARY :
+						<span>&bull; <?= count($cart_data) ; ?> Items</span>
+						<span>(<i>Not including shipping</i>)</span>
+					</p>
 					<p>TOTAL :</p>
 					<p><?= rupiah($total); ?></p>
 					<?php if(isset($_SESSION['level'])): ?>
@@ -190,18 +191,13 @@ if(isset($_POST["undoCart"])){
 			<?php endif; ?>
 		</section>
 		<!-- akhir isi cart -->
-
 		<!-- awal footer -->
 		<?php include 'assets/section/footer.php'; ?>
 		<!-- akhir footer -->
-
 		<!-- my js -->
 		<script src="assets/js/cart.js"></script>
-		<!-- navbar -->
-		<script src="assets/js/nav_cart.js"></script>
 		<!-- voucher -->
 		<!-- <script src="assets/jquery/voucher.js"></script> -->
-
 	</body>
 
 </html>

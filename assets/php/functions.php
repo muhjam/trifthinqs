@@ -23,8 +23,6 @@ function query($query) {
     return $rows;
 }
 
-
-
 // TAMBAH
 function tambah($data) {
    $conn=koneksi();
@@ -105,48 +103,6 @@ function upload(){
 }
 
 
-
-
-// Function Upload profile
-function uploadProfile(){
-   // siapkan data gambar
-    $filename=$_FILES['gambar']['name'];
-    $filetmpname=$_FILES['gambar']['tmp_name'];
-    $filesize=$_FILES['gambar']['size'];
-    $filetype=pathinfo($filename, PATHINFO_EXTENSION);
-    $allowedtype=['jpg', 'jpeg', 'png'];
-
-   $filetype=strtolower($filetype);
-
-    // cek apakah yang diupload bukan gambar
-    if(!in_array($filetype, $allowedtype)){
-    echo"<script>
-    alert('Yang anda upload bukan gambar!')
-    </script>";
-
-    return false;
-    }
-
-    // cek apakah gambar terlalu besar
-    if($filesize > 8000000){
-    echo"<script>
-    alert('Ukuran gambar terlalu besar!')
-    </script>";
-
-    return false;
-    }
-
-    // proses upload gambar
-    $newfilename = uniqid() . $filename;
-
-    move_uploaded_file($filetmpname, '../profile/' . $newfilename);
-
-    return $newfilename;
-}
-
-
-
-
 // Function delete
 function delete($id) {
    $conn=koneksi();
@@ -196,10 +152,7 @@ if($_FILES['gambar']['error']===4){
         // hapus gambar lama
     unlink('../img/' . $gambarLama);
 
-
 }
-
-
 
     $query = "UPDATE `produk` SET `id`='$id',`jenis_produk`='$jenis_produk',`kode_produk`='$kodeProduk',`nama_produk`='$namaProduk',`ukuran`='$ukuran',`harga`='$hargaBaru',`keterangan`='$keteranganBaru',`gambar`='$gambar',
      `warna`='$warna'
@@ -209,26 +162,29 @@ if($_FILES['gambar']['error']===4){
 
 
     return mysqli_affected_rows($conn);
-
-
 }
-
-
 
 
 //  Function cari
 function search($search){
+    $query = "SELECT * FROM produk
+    WHERE
+   nama_produk LIKE '%$search%' OR
+   kode_produk LIKE '%$search%' 
+   ORDER BY status ASC,id DESC
+   ";
 
-$query = "SELECT * FROM produk
-             WHERE
-            nama_produk LIKE '%$search%' OR
-            jenis_produk LIKE '%$search%' OR
-            ukuran LIKE '%$search%' OR
-            harga LIKE '%$search%' OR
-            kode_produk LIKE '%$search%' OR
-            keterangan LIKE '%$search%'
-            ORDER BY id
-            ";
+
+// $query = "SELECT * FROM produk
+//              WHERE
+//             nama_produk LIKE '%$search%' OR
+//             jenis_produk LIKE '%$search%' OR
+//             ukuran LIKE '%$search%' OR
+//             harga LIKE '%$search%' OR
+//             kode_produk LIKE '%$search%' OR
+//             keterangan LIKE '%$search%'
+//             ORDER BY status ASC,id DESC
+//             ";
 
               return query ($query);
 
@@ -246,6 +202,7 @@ $keyword=$_GET['type'];
 
    $query = "SELECT * FROM produk
               WHERE jenis_produk = '$keyword'
+              ORDER BY status ASC,id DESC
             ";
 
               return query($query);
@@ -303,10 +260,10 @@ function updateEmail($data){
 function signup($data){
    $conn=koneksi();
 
-    $username= htmlspecialchars(stripslashes($data["signup_username"]));
-    $email=htmlspecialchars($data["signup_email"]);
-    $password= mysqli_real_escape_string($conn, $data["signup_password1"]);
-    $password2= mysqli_real_escape_string($conn,$data["signup_password2"]);
+    $username= htmlspecialchars(stripslashes($data["ver_username"]));
+    $email=htmlspecialchars($data["ver_email"]);
+    $password= mysqli_real_escape_string($conn, $data["ver_password1"]);
+    $password2= mysqli_real_escape_string($conn,$data["ver_password2"]);
     $kode_aktivasi=$data["activation_code"];
 
     // enkriosi password
@@ -318,14 +275,13 @@ mysqli_query($conn, "INSERT INTO `users`(`username`,`email`, `password`,  `level
 return mysqli_affected_rows($conn);
 
 }
-// resend
-function resend($data){
+
+// forgot password
+function sendCode($data){
     $conn=koneksi();
  
-     $email=htmlspecialchars($data["signup_email"]);
+     $email=htmlspecialchars($data["ver_email"]);
      $kode_aktivasi=$data["activation_code"];
-
- 
  // tambahkan user baru ke database
  mysqli_query($conn, "UPDATE users SET kode_aktivasi='$kode_aktivasi' WHERE email='$email'");
  
@@ -333,11 +289,24 @@ function resend($data){
  
  }
 
- // resend
+// resend
+function resend($data){
+    $conn=koneksi();
+
+     $email=htmlspecialchars($data["ver_email"]);
+     $kode_aktivasi=$data["activation_code"];
+ // tambahkan user baru ke database
+ mysqli_query($conn, "UPDATE users SET kode_aktivasi='$kode_aktivasi' WHERE email='$email'");
+ 
+ return mysqli_affected_rows($conn);
+ 
+ }
+
+ // reset code
 function resetCode($data){
     $conn=koneksi();
  
-     $email=htmlspecialchars($data["signup_email"]);
+     $email=htmlspecialchars($data["ver_email"]);
      $kode_aktivasi=gen_uid();
  // tambahkan user baru ke database
  mysqli_query($conn, "UPDATE users SET kode_aktivasi='$kode_aktivasi' WHERE email='$email'");
@@ -346,30 +315,23 @@ function resetCode($data){
  
  }
 
-
-
-
-
 // Change Password
 // Change
 function changepw($data){
    $conn=koneksi();
 
-    $email=htmlspecialchars($data["email"]);
-    $password= mysqli_real_escape_string($conn, $data["password"]);
-    $password2= mysqli_real_escape_string($conn,$data["password2"]);
-
+    $email=htmlspecialchars($data["ver_email"]);
+    $password= mysqli_real_escape_string($conn, $data["ver_password1"]);
+    $password2= mysqli_real_escape_string($conn,$data["ver_password2"]);
+    
     // enkriosi password
-$password=password_hash($password, PASSWORD_DEFAULT);   
+$password=password_hash($password2, PASSWORD_DEFAULT);   
 
 // tambahkan user baru ke database
 mysqli_query($conn, "UPDATE users SET password='$password' WHERE email='$email'");
 
 
 return mysqli_affected_rows($conn);
-
-
-
 
 }
 
@@ -391,45 +353,68 @@ function idr($harga){
 }
 
 // profile
-function editFoto($data){
+function changePhoto($data){
 $conn=koneksi();
-
-     $id=htmlspecialchars($data["id"]);
+    $id=htmlspecialchars($data["id"]);
     $gambarLama=htmlspecialchars($data["gambarLama"]);
-
     // cek apakah user pilih gambar baru atau tidak
 if($_FILES['gambar']['error']===4){
     $gambar=$gambarLama;
 }else if($gambarLama=='default.png'){
-    $gambar=uploadProfile();
-
+    $gambar=uploadPhoto();
     // cek jika upload gagal
     if(!$gambar){
         return false;
     }    
-
 }else{
-      $gambar=uploadProfile();
-
+      $gambar=uploadPhoto();
     // cek jika upload gagal
     if(!$gambar){
         return false;
     }    
-
         // hapus gambar lama
-    unlink('../profile/' . $gambarLama);
+    unlink('assets/profile/' . $gambarLama);
 }
-
 $query = "UPDATE `users` SET `foto`='$gambar' WHERE `id`='$id'; ";
-
     mysqli_query($conn, $query);
-    return mysqli_affected_rows($conn);
+return mysqli_affected_rows($conn);
 
 }
-
-
-
-
+// Function Upload profile
+function uploadPhoto(){
+    // siapkan data gambar
+     $filename=$_FILES['gambar']['name'];
+     $filetmpname=$_FILES['gambar']['tmp_name'];
+     $filesize=$_FILES['gambar']['size'];
+     $filetype=pathinfo($filename, PATHINFO_EXTENSION);
+     $allowedtype=['jpg', 'jpeg', 'png'];
+ 
+    $filetype=strtolower($filetype);
+ 
+     // cek apakah yang diupload bukan gambar
+     if(!in_array($filetype, $allowedtype)){
+     echo"<script>
+     alert('Yang anda upload bukan gambar!')
+     </script>";
+ 
+     return false;
+     }
+ 
+     // cek apakah gambar terlalu besar
+     if($filesize > 10000000){
+     echo"<script>
+     alert('Ukuran gambar terlalu besar!')
+     </script>";
+ 
+     return false;
+     }
+ 
+     // proses upload gambar
+     $newfilename = uniqid() . $filename;
+ 
+     move_uploaded_file($filetmpname, 'assets/profile/' . $newfilename);
+     return $newfilename;
+ }
 
 function edit($data){
 

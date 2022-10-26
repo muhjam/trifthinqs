@@ -44,6 +44,16 @@
 	</div>
 </footer>
 
+
+<?php if(isset($_SESSION['error'])): ?>
+<?php include 'assets/php/error.php'; ?>
+<?php else: ?>
+<!-- awal login form -->
+<?php include 'assets/login/login.php'; ?>
+<!-- akhir login form -->
+<?php endif; ?>
+
+
 <!-- AOS -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
@@ -55,3 +65,9 @@ AOS.init();
 <!-- jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- search -->
+<script src="assets/js/search.js"></script>
+<!-- loadmore -->
+<?php if(strrpos($active, "/index.php")): ?>
+<script src="assets/jquery/loadmore.js"></script>
+<?php endif; ?>

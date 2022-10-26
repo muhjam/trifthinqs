@@ -1,7 +1,7 @@
 .form-login-float {
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 99999999;
+  z-index: 20;
   width: 100%;
   height: 100%;
   display: flex;
@@ -20,7 +20,14 @@
   overflow: auto;
 }
 
-.form-login-float .content.content-verification {
+.form-login-float .content form div i.validation {
+  color: red;
+  font-size: 14px;
+  display: none;
+  animation: slideRight 0.3s;
+}
+
+.form-login-float .content.content-medium {
   height: auto;
 }
 
@@ -50,8 +57,9 @@
   height: 30px;
   margin-top: 5px;
   color: black;
-  padding: 0 5px;
+  padding: 0 20px 0 5px;
 }
+
 .form-login-float .content form div input[type="email"] {
   text-transform: lowercase;
 }
@@ -76,6 +84,13 @@
   cursor: pointer;
 }
 
+.form-login-float .content form div .label i.fa-check {
+  color: green !important;
+  cursor: default;
+  display: none;
+  animation: pop 0.3s;
+}
+
 .form-login-float .content form div.password .checkbox {
   margin-left: 5px;
 }
@@ -95,6 +110,10 @@
 .form-login-float .content form div .label {
   display: flex;
   align-items: center;
+}
+
+.form-login-float .content form div .label label {
+  font-size: 14px;
 }
 
 .form-login-float .content form div input[type="checkbox"] {
@@ -162,4 +181,43 @@
   100% {
     opacity: 1;
   }
+}
+
+@keyframes slideRight {
+  0% {
+    transform: translateX(0%);
+  }
+
+  30% {
+    transform: translateX(10%);
+  }
+}
+
+@keyframes pop {
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.input {
+  position: relative;
+}
+
+.i {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 5px;
+}
+
+i.fa-circle-xmark {
+  color: red !important;
+}
+i.fa-circle-check {
+  color: green !important;
+}
+
+.password-hide {
+  display: none;
 }

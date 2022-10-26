@@ -1,7 +1,7 @@
 <?php 
 
-  require("PHPMailer-master/src/PHPMailer.php");
-  require("PHPMailer-master/src/SMTP.php");
+  require("PHPMailer-Master/src/PHPMailer.php");
+  require("PHPMailer-Master/src/SMTP.php");
 
     $mail = new PHPMailer\PHPMailer\PHPMailer();
     $mail->IsSMTP(); // enable SMTP

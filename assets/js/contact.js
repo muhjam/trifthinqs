@@ -1,5 +1,5 @@
 const scriptURL = "http://localhost/TrifthinQs./assets/php/send.php";
-const form = document.forms["TrifthinQs Store-contact-form"];
+const form = document.forms["Trifthinqs-contact-form"];
 
 const btnKirim = document.querySelector(".btn-kirim");
 const btnLoading = document.querySelector(".btn-loading");
@@ -56,10 +56,6 @@ close.addEventListener("click", function () {
   alertFailed.classList.add("d-none");
 });
 
-function inputKeyup() {
+function inputKeyup(id) {
   cancel.classList.remove("d-none");
-}
-
-function cancell() {
-  cancel.classList.add("d-none");
 }

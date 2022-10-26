@@ -1,0 +1,123 @@
+#profile {
+  display: flex;
+  justify-content: center;
+  margin-left: 0 !important;
+}
+
+.button {
+  text-align: center;
+}
+
+#profile .container {
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  margin-bottom: 100px;
+  flex-wrap: wrap;
+}
+#profile .container p,
+#profile .container span {
+  color: black;
+}
+
+/* left side */
+#profile .container .biodata-left {
+  display: block;
+  max-width: 322px;
+  padding: 16px;
+}
+
+#profile .container .biodata-left .profile-photo {
+  display: block;
+  position: relative;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px 0 var(--color-shadow, rgba(49, 53, 59, 0.12));
+  background-color: var(--color-card, #ffffff);
+  cursor: default;
+  margin: 0px 0px 24px;
+}
+
+#profile .container .biodata-left .profile-photo img {
+  max-height: 300px;
+  object-fit: contain;
+}
+
+#profile .container .biodata-left .profile-photo button {
+  width: 90%;
+  color: black;
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 5px 0;
+}
+
+#profile .container .biodata-left .profile-photo p {
+  margin: 12px 0;
+  color: #0000008a;
+}
+
+/* right side */
+#profile .container .biodata-right {
+  display: block;
+  padding: 16px;
+}
+
+#profile .container .biodata-right p {
+  font-weight: 700;
+  line-height: 20px;
+  margin-top: 14px;
+  margin-bottom: 24px;
+}
+
+#profile .container .biodata-right p a {
+  color: black;
+}
+
+#profile .container .biodata-right p a:hover {
+  color: red;
+}
+
+#profile .container .biodata-right a {
+  color: red;
+}
+
+#profile .container .biodata-right .contain {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  margin-bottom: 32px;
+  font-size: 0.928571rem;
+  flex-wrap: wrap;
+}
+
+#profile .container .biodata-right .contain span:first-child {
+  width: 114px;
+}
+
+#profile .container .biodata-right .contain span:nth-child(2) {
+  margin-right: 14px;
+}
+
+#profile .container .biodata-right form {
+  display: inline;
+}
+
+#profile .container .biodata-right .button button {
+  width: 60%;
+  color: black;
+  cursor: pointer;
+  padding: 10px 0;
+}
+
+#profile .container .biodata-right form .button button.logout {
+  margin: 8px 0;
+}
+
+#profile .container .biodata-right form .button button.logout:hover {
+  color: red;
+}
+
+#profile .container .biodata-right .button button i {
+  margin-right: 10px;
+}

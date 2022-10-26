@@ -108,6 +108,10 @@
   text-transform: uppercase;
 }
 
+#shop {
+  margin: 0 10px 100px 10px;
+}
+
 .produk {
   margin-bottom: 50px;
   display: flex;
@@ -121,7 +125,7 @@
 .produk a {
   width: 25%;
   text-align: center;
-  padding: 20px;
+  padding: 5px;
   /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.2); */
 }
 
@@ -137,7 +141,7 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  border-radius: 5px;
+  /* border-radius: 5px; */
 }
 
 .produk a .border img {
@@ -173,7 +177,7 @@
 }
 
 .produk p {
-  margin-top: 5px;
+  margin: 5px 0 10px;
   font-size: 10px;
   font-weight: 500;
   font-family: "Montserrat", sans-serif;
@@ -187,12 +191,23 @@
 
 #loadMore {
   text-align: center;
-  margin: 25px 0 100px 0;
+  margin-top: 25px;
 }
 
-#loadMore button {
+#loadMore a {
   color: #161b22;
+  border: 1px solid #161b22;
+  padding: 10px 20px;
+  font-size: 12px;
   cursor: pointer;
+  transition: 0.3s;
+  font-weight: 500;
+}
+
+#loadMore a:hover {
+  color: #ffff;
+  border: 1px solid #161b22;
+  background-color: #161b22;
 }
 
 /* akhir loadmore */

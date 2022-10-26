@@ -8,12 +8,55 @@ function closeForm() {
   formVerification.classList.add("d-none");
 }
 
-function loadingBtn() {
-  var loadingBtn = document.querySelector(".fa-circle-o-notch");
-  const resendForm = document.querySelector(".resend-form");
-  loadingBtn.classList.remove("d-none");
-  resendForm.classList.add("d-none");
+// password
+const formVal = document.forms["form-change"];
+var password1 = document.getElementById("password2");
+var password2 = document.getElementById("password3");
+// container
+var confirmPassword = document.getElementById("confirm-password");
+
+// password
+// tambahkan event ketika keyboard ditulis
+password1.addEventListener("focusout", function () {
+  password1V();
+});
+password1.addEventListener("input", function () {
+  password1V();
+});
+
+if (password1.value.length >= 8) {
+  password1V();
 }
+
+if (password1.value == "") {
+  subValP1 = "1";
+}
+
+// confirmation password
+password2.addEventListener("focusout", function () {
+  password2V();
+});
+password2.addEventListener("input", function () {
+  password2V();
+});
+
+if (password2.value != "") {
+  password2V();
+}
+
+if (password2.value == "") {
+  subValP2 = "1";
+}
+
+formVal.addEventListener("submit", function (e) {
+  var loadingBtn = document.querySelector(".fa-spin-change");
+  if (subValP1 == "1" || subValP2 == "1") {
+    e.preventDefault();
+    return;
+  }
+  loadingBtn.classList.remove("d-none");
+});
+
 // function startTimer(duration, display) {
 //   var timer = duration,
 //     minutes,

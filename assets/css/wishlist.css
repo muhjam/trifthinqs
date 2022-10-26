@@ -102,7 +102,7 @@
 .produk div.news-item a .border {
     width: 100%;
     overflow: hidden;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     position:relative;
 }
 

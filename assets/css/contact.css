@@ -18,7 +18,6 @@
 #contact .contact form .row .col input {
   border: none;
   outline: none;
-  background-color: #eaeaea;
   color: #161b22;
   font-size: 20px;
   margin: 10px 0;
@@ -28,8 +27,7 @@
   display: inline-block;
   width: auto;
   margin: 10px 0;
-  border: 1px solid grey;
-  border-radius: 5px;
+  border: 1px solid #161b22;
 }
 
 #contact .contact form .row .col label {
@@ -48,7 +46,6 @@
 #contact .contact form .row .col textarea {
   border: none;
   outline: none;
-  background-color: #eaeaea;
   color: #161b22;
   font-size: 20px;
   margin: 10px 0;
@@ -60,8 +57,7 @@
   cursor: pointer;
   padding: 10px 50px;
   margin-bottom: 5px;
-  transition: 0.5s;
-  border-radius: 5px;
+  transition: 0.3s;
 }
 
 #contact .contact form .row .col button:hover {
@@ -69,7 +65,6 @@
   background-color: #161b22;
   cursor: pointer;
   padding: 10px 50px;
-  margin-bottom: 5px;
 }
 
 #contact .contact form .row .col button:first-child {
@@ -77,14 +72,11 @@
 }
 
 #contact .contact form .row .col button:last-child {
-  color: #ffff;
+  color: #161b22;
   cursor: pointer;
   padding: 10px 50px;
   margin-bottom: 5px;
-  transition: 0.5s;
-  border-radius: 5px;
-  background-color: #d0312d;
-  border-color: #d0312d;
+  transition: 0.3s;
 }
 
 #contact .contact form .row .col button:last-child:hover {
@@ -92,10 +84,7 @@
   cursor: pointer;
   padding: 10px 50px;
   margin-bottom: 5px;
-  transition: 0.5s;
-  border-radius: 5px;
-  background-color: #d0312d;
-  border-color: #d0312d;
+  background-color: #161b22;
 }
 
 #contact .contact form .row .col.button {
@@ -135,7 +124,6 @@
   #contact .contact form .row .col textarea {
     border: none;
     outline: none;
-    background-color: #eaeaea;
     color: #161b22;
     font-size: 100%;
     margin: 10px 0;
@@ -143,7 +131,6 @@
   #contact .contact form .row .col input {
     border: none;
     outline: none;
-    background-color: #eaeaea;
     color: #161b22;
     font-size: 100%;
     margin: 5px 0;
@@ -157,28 +144,22 @@
     cursor: pointer;
     padding: 5px 25px;
     margin-bottom: 5px;
-    transition: 0.5s;
-    border-radius: 5px;
+    transition: 0.3s;
   }
   #contact .contact form .row .col button:last-child {
-    color: #ffff;
+    color: #161b22;
     cursor: pointer;
     padding: 5px 25px;
     margin-bottom: 5px;
-    transition: 0.5s;
-    border-radius: 5px;
-    background-color: #d0312d;
-    border-color: #d0312d;
+    transition: 0.3s;
   }
   #contact .contact form .row .col button:last-child:hover {
     color: #ffff;
     cursor: pointer;
     padding: 10px 50px;
     margin-bottom: 5px;
-    transition: 0.5s;
-    border-radius: 5px;
-    background-color: #d0312d;
-    border-color: #d0312d;
+    transition: 0.3s;
+    background-color: #161b22;
   }
   #contact .contact form .row .col button:hover {
     color: #ffff;
@@ -186,8 +167,6 @@
     cursor: pointer;
     padding: 5px 25px;
     margin-bottom: 5px;
-    transition: 0.5s;
-    border-radius: 5px;
   }
   #contact .contact form .row .col button.buttonload {
     color: #ffff;
@@ -195,8 +174,7 @@
     cursor: pointer;
     padding: 5px 25px;
     margin-bottom: 5px;
-    transition: 0.5s;
-    border-radius: 5px;
+    transition: 0.3s;
   }
 }
 

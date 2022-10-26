@@ -1,24 +1,12 @@
 <?php
-if(isset($_SESSION['level'])){
+// algoritma login
+include "assets/login/algoritma.php";
 
-if(isset($_POST['logout'])){
-$_SESSION=[];
-session_unset();
-session_destroy();
+// get url
+$link="http://localhost".$_SERVER['PHP_SELF'];
 
+include "assets/login/welcome.php";
 
-setcookie('email', '', time() - 90000);
-setcookie('key', '', time() - 90000);
-
-header("Refresh:0");
-exit;
-}
-
-	// notif wish
-	$wish=mysqli_query(koneksi(),"SELECT * FROM wish WHERE id_u='$id_u'");
-	// profile
-		$profile=query("SELECT * FROM users WHERE id='$id_u'")['0'];
-}
 // notif cart
 if(isset($_COOKIE['shopping_cart'])&&isset($_COOKIE['code'])&&$_COOKIE['code']===hash('sha256', $_COOKIE['shopping_cart'])){
 	$cookie=strlen($_COOKIE['shopping_cart']);
@@ -27,13 +15,22 @@ if(isset($_COOKIE['shopping_cart'])&&isset($_COOKIE['code'])&&$_COOKIE['code']==
 }
 // jenis produk
 $jenisProduk=query("SELECT * FROM jenis_produk");
+
+// search
+if(isset($_GET['q'])){
+	$trifthinqs=search($_GET['q']);
+}
+
+// active nav
+$active=$_SERVER['PHP_SELF'];
 ?>
 <link rel="stylesheet" href="assets/css/title.css" />
 <link rel="stylesheet" href="assets/css/nav.css" />
 <nav>
 	<ul class="nav-list">
 		<li id="shop-nav">
-			<a id="nav-shop" class="">Shop</a>
+			<a id="nav-shop"
+				class="<?php if(strrpos($active, "/index.php")||strrpos($active, "/product.php")){echo"active";}?>">Shop</a>
 			<ul class="shop nav-dropdown">
 				<li>
 					<h1>Collections</h1>
@@ -41,16 +38,17 @@ $jenisProduk=query("SELECT * FROM jenis_produk");
 				<?php foreach($jenisProduk as $jenis): ?>
 				<li><a href="index.php?type=<?= $jenis['jenis_produk'];?>"><?= $jenis['jenis_produk']; ?></a></li>
 				<?php endforeach; ?>
-				<li><a href="index.php#shop">All Items</a></li>
+				<li><a href="index.php?shop">All Items</a></li>
 			</ul>
 		</li>
 
 		<li>
-			<a href="contact.php" id="nav-contact">Contact</a>
+			<a href="contact.php" id="nav-contact"
+				class="<?php if(strrpos($active, "/contact.php")){echo"active";}?>">Contact</a>
 		</li>
 
 		<li>
-			<a id="nav-contact">Location</a>
+			<a href="https://goo.gl/maps/Gyjo18mUM7QDzFK27" target="_blank" id="nav-contact">Location</a>
 		</li>
 
 		<?php if(isset($_SESSION['level'])): ?>
@@ -70,26 +68,32 @@ $jenisProduk=query("SELECT * FROM jenis_produk");
 
 	<ul class="right">
 		<li>
-			<form action="index.php" method="post" id="form-search">
-				<input type="search" name="search" id="search" autocomplete="off"
-					value="<?php if(isset($_POST['search'])){echo $search;}?>">
+			<form action="index.php" method="get" id="form-search">
+				<input type="search" name="q" id="search" autocomplete="off"
+					value="<?php if(isset($_GET['q'])){echo $_GET['q'];}?>">
 				<label class="fas fa-search" for="search"></label>
+				<div id="livesearch"></div>
 			</form>
 		</li>
 
 		<li id="notif-cart">
 			<a href="cart.php">
-				<i class="fas fa-cart-arrow-down" id="nav-cart"></i>
+				<i class="fa-solid fa-cart-shopping <?php if(strrpos($active, "/cart.php")){echo"active";}?>" id="nav-cart"></i>
+				<?php if(!strrpos($active, "/cart.php")):?>
 				<?php if(isset($_COOKIE['shopping_cart'])&&isset($_COOKIE['code'])&&$_COOKIE['code']===hash('sha256', $_COOKIE['shopping_cart'])&&strlen($_COOKIE['shopping_cart'])>16): ?>
 				<span class="notif notif-cart"><?= count($cart_data) ; ?></span>
+				<?php endif; ?>
 				<?php endif; ?>
 			</a>
 		</li>
 
 		<li id="notif-wish">
-			<a href="wishlist.php"><i class="fas fa-heart" id="nav-wish"></i>
+			<a href="wishlist.php"><i class="fas fa-heart <?php if(strrpos($active, "/wishlist.php")){echo"active";}?>"
+					id="nav-wish"></i>
+				<?php if(!strrpos($active, "/wishlist.php")):?>
 				<?php if(isset($_SESSION['level'])&&mysqli_fetch_assoc($wish)): ?>
 				<span class="notif notif-wish"><?= mysqli_num_rows($wish); ?></span>
+				<?php endif; ?>
 				<?php endif; ?>
 			</a>
 		</li>
@@ -97,13 +101,13 @@ $jenisProduk=query("SELECT * FROM jenis_produk");
 		<?php if(isset($_SESSION['level'])): ?>
 		<?php if($_SESSION['level']=='user'||$_SESSION['level']=='admin'): ?>
 
-		<li id="profile">
-			<a>
+		<li id="profile-nav">
+			<a class="<?php if(strrpos($active, '/profile.php')){echo'active';}?>">
 				<img id="nav-profile" src="assets/profile/<?=$profile['foto']?>" alt="<?=$profile['username']?>"
-					title="<?=$profile['username']?>" style="width:30px; height:30px; object-fit:cover;border-radius:50%;">
+					title="<?=$profile['username']?>" style="<?php if(strrpos($active, '/profile.php')){echo'opacity:1;';}?>">
 			</a>
 			<ul class="profile nav-dropdown">
-				<li><a href="#!">Profile</a></li>
+				<li><a href="profile.php">Profile</a></li>
 				<li>
 					<form action="" method="post" style="display:inline-block;">
 						<input type='hidden' hidden name='logout'>
@@ -117,10 +121,8 @@ $jenisProduk=query("SELECT * FROM jenis_produk");
 
 		<?php if(!isset($_SESSION['level'])): ?>
 		<li id="login">
-			<a onclick="login()">login</a>
+			<a onclick="login()" class="overlay">login</a>
 		</li>
 		<?php endif; ?>
 	</ul>
-
 </nav>
-<script src="assets/js/nav.js"></script>

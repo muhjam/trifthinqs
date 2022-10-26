@@ -1,6 +1,6 @@
 <?php 
 // session
-include "assets/section/session.php";
+include "assets/login/session.php";
 if(isset($_SESSION['level'])){
 $wishlist=mysqli_query(koneksi(),"SELECT * FROM wish, produk WHERE produk.id=wish.id_p AND id_u=$id_u");
 // shopping cart	
@@ -60,9 +60,6 @@ if(isset($_POST["removeCart"])){
 	</head>
 
 	<body>
-		<!-- awal login form -->
-		<?php include 'assets/login/login.php'; ?>
-		<!-- akhir login form -->
 		<!-- awal isi konten -->
 		<!-- awal navbar -->
 		<?php include 'assets/section/nav.php'; ?>
@@ -71,7 +68,7 @@ if(isset($_POST["removeCart"])){
 		<div class="title">
 			<h3>Wishlist</h3>
 			<div class="sub-title">
-				<a href="index.php">home</a> / <a href="index.php#shop">shop</a> / <a href="#" id="point">wishlist</a>
+				<a href="index.php?home">home</a> / <a href="index.php?shop">shop</a> / <a href="#" id="point">wishlist</a>
 			</div>
 		</div>
 
@@ -136,16 +133,11 @@ if(isset($_POST["removeCart"])){
 			<?php endif; ?>
 		</section>
 		<!-- akhir isi wishlist -->
-
 		<!-- awal footer -->
 		<?php include 'assets/section/footer.php'; ?>
 		<!-- akhir footer -->
-
+		<!-- wishlist js -->
 		<script src="assets/js/wishlist.js"></script>
-
-		<!-- navbar -->
-		<script src="assets/js/nav_wish.js"></script>
-
 	</body>
 
 </html>

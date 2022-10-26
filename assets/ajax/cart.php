@@ -108,11 +108,19 @@ if(isset($_COOKIE['code'])){
 		</table>
 	</div>
 	<div class="summary">
-		<p>SUMMARY : </p>
-		<span>&bull; <?= count($cart_data) ; ?> Items</span>
+		<p>
+			SUMMARY :
+			<span>&bull; <?= count($cart_data) ; ?> Items</span>
+			<span>(<i>Not including shipping</i>)</span>
+		</p>
+
 		<p>TOTAL :</p>
 		<p><?= rupiah($total); ?></p>
+		<?php if(isset($_SESSION['level'])): ?>
 		<button>Check Out</button>
+		<?php else: ?>
+		<button onclick="login()">Check Out</button>
+		<?php endif; ?>
 	</div>
 	<?php else: ?>
 </div>
